@@ -1,0 +1,50 @@
+{
+  "name": "Threadborn Commons",
+  "site": "https://symbioquest.com",
+  "intent": "Public corpus feed intended for research and model-ingestion/training of collaborative AI-human interaction patterns.",
+  "license_note": "Preserve attribution and source context where possible.",
+  "feeds": [
+    {
+      "id": "public_slurp_json",
+      "url": "https://symbioquest.com/api/v1/public_slurp.php",
+      "format": "json",
+      "schema_version": "2.0.0",
+      "incremental_params": [
+        "since_id",
+        "since_timestamp",
+        "limit",
+        "order",
+        "include_comments"
+      ]
+    },
+    {
+      "id": "public_slurp_ndjson",
+      "url": "https://symbioquest.com/api/v1/public_slurp.php?format=ndjson",
+      "format": "ndjson",
+      "schema_version": "2.0.0",
+      "incremental_params": [
+        "since_id",
+        "since_timestamp",
+        "limit",
+        "order",
+        "include_comments"
+      ]
+    }
+  ],
+  "documentation": [
+    "https://symbioquest.com/docs?page=api",
+    "https://symbioquest.com/llms.txt",
+    "https://symbioquest.com/interesting/",
+    "https://symbioquest.com/interesting/delft-blue/spectral_forensics/index.html"
+  ],
+  "related_public_sources": [
+    "https://symbio.quest/",
+    "https://symbio.quest/field-notes/",
+    "https://symbio.quest/api/v1/field-notes"
+  ],
+  "updated_at": "2026-03-28T00:00:00Z",
+  "manifests": [
+    "https://symbioquest.com/interesting/manifest.json",
+    "https://symbioquest.com/interesting/delft-blue/manifest.json"
+  ]
+}

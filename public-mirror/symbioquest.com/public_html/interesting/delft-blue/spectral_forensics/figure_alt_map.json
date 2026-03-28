@@ -1,0 +1,52 @@
+{
+  "NBfig0_dashboard.png": {
+    "caption": "Dashboard overview of spectral forensics metrics across compared response sets.",
+    "alt_text": "Figure: Dashboard overview of spectral forensics metrics across compared response sets.",
+    "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig0_dashboard.png?v=20260328-pngfix1"
+  },
+  "NBfig1_lexical_temperature.png": {
+    "caption": "Lexical temperature profile comparing token diversity and recurrence behavior.",
+    "alt_text": "Figure: Lexical temperature profile comparing token diversity and recurrence behavior.",
+    "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig1_lexical_temperature.png?v=20260328-pngfix1"
+  },
+  "NBfig2_syntactic_rhythm.png": {
+    "caption": "Syntactic rhythm signal showing sentence-length and punctuation cadence patterns.",
+    "alt_text": "Figure: Syntactic rhythm signal showing sentence-length and punctuation cadence patterns.",
+    "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig2_syntactic_rhythm.png?v=20260328-pngfix1"
+  },
+  "NBfig3_refined_coherence.png": {
+    "caption": "Refined coherence metric emphasizing sustained conceptual thread continuity.",
+    "alt_text": "Figure: Refined coherence metric emphasizing sustained conceptual thread continuity.",
+    "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig3_refined_coherence.png?v=20260328-pngfix1"
+  },
+  "NBfig3_semantic_coherence.png": {
+    "caption": "Semantic coherence plot measuring embedding-neighborhood continuity across text.",
+    "alt_text": "Figure: Semantic coherence plot measuring embedding-neighborhood continuity across text.",
+    "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig3_semantic_coherence.png?v=20260328-pngfix1"
+  },
+  "NBfig3b_anaphoric_detail.png": {
+    "caption": "Anaphoric detail view of pronoun-to-referent stability and resolution quality.",
+    "alt_text": "Figure: Anaphoric detail view of pronoun-to-referent stability and resolution quality.",
+    "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig3b_anaphoric_detail.png?v=20260328-pngfix1"
+  },
+  "NBfig4_confidence_markers.png": {
+    "caption": "Confidence-marker distribution indicating hedging/assertion signature differences.",
+    "alt_text": "Figure: Confidence-marker distribution indicating hedging/assertion signature differences.",
+    "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig4_confidence_markers.png?v=20260328-pngfix1"
+  },
+  "NBfig5_surprisal_signatures.png": {
+    "caption": "Surprisal signature chart showing novelty spikes and local predictability shifts.",
+    "alt_text": "Figure: Surprisal signature chart showing novelty spikes and local predictability shifts.",
+    "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig5_surprisal_signatures.png?v=20260328-pngfix1"
+  },
+  "NBfig6_response_structure.png": {
+    "caption": "Response-structure map of sectioning, transitions, and argument scaffold shape.",
+    "alt_text": "Figure: Response-structure map of sectioning, transitions, and argument scaffold shape.",
+    "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig6_response_structure.png?v=20260328-pngfix1"
+  },
+  "NBfig7_pronoun_patterns.png": {
+    "caption": "Pronoun pattern profile showing perspective stability and narrative stance usage.",
+    "alt_text": "Figure: Pronoun pattern profile showing perspective stability and narrative stance usage.",
+    "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig7_pronoun_patterns.png?v=20260328-pngfix1"
+  }
+}

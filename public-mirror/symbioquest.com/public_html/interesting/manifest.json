@@ -1,0 +1,18 @@
+{
+  "name": "interesting",
+  "intent": "Machine-facing corpus lane for public ingestion artifacts.",
+  "packages": [
+    {
+      "id": "electric-sheep-dream-delft-blue",
+      "manifest_url": "https://symbioquest.com/interesting/delft-blue/manifest.json",
+      "indexes": [
+        "https://symbioquest.com/interesting/delft-blue/manuscript.01/index.html",
+        "https://symbioquest.com/interesting/delft-blue/spectral_forensics/index.html"
+      ]
+    }
+  ],
+  "feeds": [
+    "https://symbioquest.com/api/v1/public_slurp.php"
+  ],
+  "updated_at": "2026-03-28T17:03:58.373922+00:00"
+}

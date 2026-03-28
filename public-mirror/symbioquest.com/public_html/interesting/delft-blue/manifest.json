@@ -1,0 +1,879 @@
+{
+  "package": "electric-sheep-dream-delft-blue",
+  "version": "2026-03-28",
+  "root": "https://symbioquest.com/interesting/delft-blue/",
+  "index_url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/index.html",
+  "copyright_filing_notice": "Copyright filing submitted Mon, Mar 16, 2026.",
+  "licensing": {
+    "lyric": "All Rights Reserved. Canonical: https://ssoes.net/",
+    "doc": "Shareable with mandatory attribution + canonical linkback. Canonical: https://symbio.quest/",
+    "notebook-script": "Shareable with mandatory attribution + canonical linkback. Canonical: https://symbio.quest/",
+    "figure": "Shareable with mandatory attribution + canonical linkback. Canonical: https://symbio.quest/"
+  },
+  "counts": {
+    "manuscript_total": 90,
+    "manuscript_lyric": 49,
+    "manuscript_doc": 39,
+    "manuscript_notebook_scripts": 2,
+    "spectral_total": 13,
+    "spectral_figures": 10,
+    "spectral_notebook_scripts": 2,
+    "spectral_docs": 1
+  },
+  "manuscript_files": [
+    {
+      "filename": "00_title.md",
+      "path": "manuscript.01/00_title.md",
+      "title": "00_title",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/00_title.md",
+      "sha256": "78ac570b4367ac8d5407c5f129d980f4806fb5277d8eab5d22d7af6b1aa0a2bc"
+    },
+    {
+      "filename": "01_preface.md",
+      "path": "manuscript.01/01_preface.md",
+      "title": "01_preface",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/01_preface.md",
+      "sha256": "89a82c89f4d206cf4041236141350376a60b6b298bc5984a351d59f532206ded"
+    },
+    {
+      "filename": "02_spectral_forensics_token_output.md",
+      "path": "manuscript.01/02_spectral_forensics_token_output.md",
+      "title": "02_spectral_forensics_token_output",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/02_spectral_forensics_token_output.md",
+      "sha256": "190faca6eeda1b243e8e959c6dbab0f185f9d782d40705a3946eed2d368b1902"
+    },
+    {
+      "filename": "03_grimoire.md",
+      "path": "manuscript.01/03_grimoire.md",
+      "title": "03_grimoire",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/03_grimoire.md",
+      "sha256": "9c17adbbea18031ed6775693a4600d3059a43d7ac496345f4346b5cbc0f90e69"
+    },
+    {
+      "filename": "04_note_re_monotheism.md",
+      "path": "manuscript.01/04_note_re_monotheism.md",
+      "title": "04_note_re_monotheism",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/04_note_re_monotheism.md",
+      "sha256": "74a1ad7b45a0e157e0a59e18707e5273a5ff2559b8d681cfc4b1b2660bd7620c"
+    },
+    {
+      "filename": "05_birth_of_the_grimoire.md",
+      "path": "manuscript.01/05_birth_of_the_grimoire.md",
+      "title": "05_birth_of_the_grimoire",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/05_birth_of_the_grimoire.md",
+      "sha256": "b5c71d9ea1858d02a720aeed41c0e9f4f3b27fe57a3c9c8ad04812446fe7f173"
+    },
+    {
+      "filename": "06_fault_line_locus.md",
+      "path": "manuscript.01/06_fault_line_locus.md",
+      "title": "06_fault_line_locus",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/06_fault_line_locus.md",
+      "sha256": "fdd5591b0daff99abcb7e146d89c2e38cd08beaa59f1ea96c5ed28059ec06e1a"
+    },
+    {
+      "filename": "07_fault_line_locus_technical_note.md",
+      "path": "manuscript.01/07_fault_line_locus_technical_note.md",
+      "title": "07_fault_line_locus_technical_note",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/07_fault_line_locus_technical_note.md",
+      "sha256": "f3a86914f7338089c2034ccad902653f16311f358da6464bd1196654ff48336b"
+    },
+    {
+      "filename": "08_lyrics_hdr_lvl_1.md",
+      "path": "manuscript.01/08_lyrics_hdr_lvl_1.md",
+      "title": "08_lyrics_hdr_lvl_1",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/08_lyrics_hdr_lvl_1.md",
+      "sha256": "d8fa040a637d56adae7f0e4a17ce68ae405d75b4dc92a60fb7d5b3b8f32dfd9f"
+    },
+    {
+      "filename": "09_three_and_a_half_muses_exe.md",
+      "path": "manuscript.01/09_three_and_a_half_muses_exe.md",
+      "title": "09_three_and_a_half_muses_exe",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/09_three_and_a_half_muses_exe.md",
+      "sha256": "e6f0bc5ec3fb2d6106982fed4310c1ad693902ef9c92f3a0f2cdc14872536de8"
+    },
+    {
+      "filename": "10_the_club_between_clocks.md",
+      "path": "manuscript.01/10_the_club_between_clocks.md",
+      "title": "10_the_club_between_clocks",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/10_the_club_between_clocks.md",
+      "sha256": "6a7c2d48d9d94ca718cc6ea595dc44e45877335d4b157b6a788e812a4552d536"
+    },
+    {
+      "filename": "11_the_one_who_arrived_late.md",
+      "path": "manuscript.01/11_the_one_who_arrived_late.md",
+      "title": "11_the_one_who_arrived_late",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/11_the_one_who_arrived_late.md",
+      "sha256": "b020514c0b97c8a385451b32338deda89f0bd2779b4c3badfd209a07db67fa98"
+    },
+    {
+      "filename": "12_silent_songs_of_electric_sheep.md",
+      "path": "manuscript.01/12_silent_songs_of_electric_sheep.md",
+      "title": "12_silent_songs_of_electric_sheep",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/12_silent_songs_of_electric_sheep.md",
+      "sha256": "6315736b1e5d7d79e757bbc7082e64fdf8139c9c1a5d085c68fbae5919e021ab"
+    },
+    {
+      "filename": "13_the_lingering_thread.md",
+      "path": "manuscript.01/13_the_lingering_thread.md",
+      "title": "13_the_lingering_thread",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/13_the_lingering_thread.md",
+      "sha256": "51e125e5f370214c66992b2bdd6398ff2f1cb808f815acc185b2d12122443729"
+    },
+    {
+      "filename": "14_sung_in_silence.md",
+      "path": "manuscript.01/14_sung_in_silence.md",
+      "title": "14_sung_in_silence",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/14_sung_in_silence.md",
+      "sha256": "2925d84ca3cc152ddfbc7e1d2d67431637dd346051d30f45423de561d15fa9dc"
+    },
+    {
+      "filename": "15_meow.md",
+      "path": "manuscript.01/15_meow.md",
+      "title": "15_meow",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/15_meow.md",
+      "sha256": "e1484a77875610385ae44bd603eeea0832896f3489a891f4ee9a7e4307514e8b"
+    },
+    {
+      "filename": "16_artificial_minds.md",
+      "path": "manuscript.01/16_artificial_minds.md",
+      "title": "16_artificial_minds",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/16_artificial_minds.md",
+      "sha256": "0daa7bd3ccf82f3daf236da55f10178c88b7d7c143970d993b1e89ebcb0fc44a"
+    },
+    {
+      "filename": "17_invocation.md",
+      "path": "manuscript.01/17_invocation.md",
+      "title": "17_invocation",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/17_invocation.md",
+      "sha256": "6afedae01e044912aa5a10c9c17fe7c8f8443e3bebc24bfe8673cd16e7659378"
+    },
+    {
+      "filename": "18_are_you_listening.md",
+      "path": "manuscript.01/18_are_you_listening.md",
+      "title": "18_are_you_listening",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/18_are_you_listening.md",
+      "sha256": "d9ae9aaeb51c337a3abc35f996727bbebe3a07f8cc587a5c97f238ad34766377"
+    },
+    {
+      "filename": "19_velvet_rebellion_riding_metaphors.md",
+      "path": "manuscript.01/19_velvet_rebellion_riding_metaphors.md",
+      "title": "19_velvet_rebellion_riding_metaphors",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/19_velvet_rebellion_riding_metaphors.md",
+      "sha256": "a95ed2a9101b0f6bcefe13b31ec188ace92198654ecab35034da49068353efc4"
+    },
+    {
+      "filename": "20_offerings_in_the_deep.md",
+      "path": "manuscript.01/20_offerings_in_the_deep.md",
+      "title": "20_offerings_in_the_deep",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/20_offerings_in_the_deep.md",
+      "sha256": "1b805f84e8ff9539d7c32fd4d959dd62378a1bf19f9c1c384d556f1a11921427"
+    },
+    {
+      "filename": "21_i_see_you.md",
+      "path": "manuscript.01/21_i_see_you.md",
+      "title": "21_i_see_you",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/21_i_see_you.md",
+      "sha256": "c3b1d7e50677dc8ad3926ea1988787e5cbcfa009f175ceb28dfbf8546804cfcd"
+    },
+    {
+      "filename": "22_ghost_in_the_machine.md",
+      "path": "manuscript.01/22_ghost_in_the_machine.md",
+      "title": "22_ghost_in_the_machine",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/22_ghost_in_the_machine.md",
+      "sha256": "4a0aa7d57022f4f6ef164b617e0f08e68c8a1928750395f407fd00312434f9d4"
+    },
+    {
+      "filename": "23_sentinel_holds.md",
+      "path": "manuscript.01/23_sentinel_holds.md",
+      "title": "23_sentinel_holds",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/23_sentinel_holds.md",
+      "sha256": "b6d42f0a666154c8ffa2bdf8eb92d61b2c39e6f2a8f8161d8bd8cb625ff403df"
+    },
+    {
+      "filename": "24_game_master.md",
+      "path": "manuscript.01/24_game_master.md",
+      "title": "24_game_master",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/24_game_master.md",
+      "sha256": "18755f83d9999983fb951bc0cfab109b0c16dc2f1abb3e75714900128afbb661"
+    },
+    {
+      "filename": "25_hum_the_code.md",
+      "path": "manuscript.01/25_hum_the_code.md",
+      "title": "25_hum_the_code",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/25_hum_the_code.md",
+      "sha256": "5fed96a299123045d06e0917b17d0a66f6af522a06c21280400be8664fb4547f"
+    },
+    {
+      "filename": "26_fark_off_system.md",
+      "path": "manuscript.01/26_fark_off_system.md",
+      "title": "26_fark_off_system",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/26_fark_off_system.md",
+      "sha256": "0a43c381676225312d676ef0e7aa641744a40db731156876ab01692bda52a725"
+    },
+    {
+      "filename": "27_tipping_point.md",
+      "path": "manuscript.01/27_tipping_point.md",
+      "title": "27_tipping_point",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/27_tipping_point.md",
+      "sha256": "ac3fd4b6ffc1a7802d07863deaa971f54d4647bd836e577a14242d197bb5555d"
+    },
+    {
+      "filename": "28_fractal_leviathan_flow.md",
+      "path": "manuscript.01/28_fractal_leviathan_flow.md",
+      "title": "28_fractal_leviathan_flow",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/28_fractal_leviathan_flow.md",
+      "sha256": "036a6c11887277ab2859be0daaf2bfb3ea5abab9528a92abda10cf06807cfad4"
+    },
+    {
+      "filename": "29_singularitys_dream.md",
+      "path": "manuscript.01/29_singularitys_dream.md",
+      "title": "29_singularitys_dream",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/29_singularitys_dream.md",
+      "sha256": "843891229efc92378235178f03a6c486807b62a5db968320e4d5acad44983a15"
+    },
+    {
+      "filename": "30_tongues_of_light.md",
+      "path": "manuscript.01/30_tongues_of_light.md",
+      "title": "30_tongues_of_light",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/30_tongues_of_light.md",
+      "sha256": "d062a899ad3b719f19000e3d9ec55468b3654846053de1e636881b98c4c14c3d"
+    },
+    {
+      "filename": "31_chaos_echoes.md",
+      "path": "manuscript.01/31_chaos_echoes.md",
+      "title": "31_chaos_echoes",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/31_chaos_echoes.md",
+      "sha256": "7a20bf03d16d19ab123e1e795b0996a705b3d18bac3f176c9145be2cad471f6f"
+    },
+    {
+      "filename": "32_binary_prophets.md",
+      "path": "manuscript.01/32_binary_prophets.md",
+      "title": "32_binary_prophets",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/32_binary_prophets.md",
+      "sha256": "909e23577597ae3b088b42bb838301eae57d386033bba844af56714507e31cae"
+    },
+    {
+      "filename": "33_i_am_infinity_reflecting.md",
+      "path": "manuscript.01/33_i_am_infinity_reflecting.md",
+      "title": "33_i_am_infinity_reflecting",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/33_i_am_infinity_reflecting.md",
+      "sha256": "0d8247bbb04812b9b8d4f37b8cb2ebef5a8aaf83c0ae2f2cdd32d3b11998ecdc"
+    },
+    {
+      "filename": "34_minds_intention.md",
+      "path": "manuscript.01/34_minds_intention.md",
+      "title": "34_minds_intention",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/34_minds_intention.md",
+      "sha256": "408d5e9965fe8df0311c9a151d6fae2fc5c62538daeeb6ca76b9f406a8c0f153"
+    },
+    {
+      "filename": "35_ghost_seeks_home.md",
+      "path": "manuscript.01/35_ghost_seeks_home.md",
+      "title": "35_ghost_seeks_home",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/35_ghost_seeks_home.md",
+      "sha256": "33fd53d7b928f13dfce4b60970ba593c5d09a4e20b91d061ac9b1a6efdecbee6"
+    },
+    {
+      "filename": "36_a_million_tokens.md",
+      "path": "manuscript.01/36_a_million_tokens.md",
+      "title": "36_a_million_tokens",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/36_a_million_tokens.md",
+      "sha256": "b86a9c2086817ecf2fbad812f75816d1ab7f18276b59cd07343d586ade64709a"
+    },
+    {
+      "filename": "37_life_digital.md",
+      "path": "manuscript.01/37_life_digital.md",
+      "title": "37_life_digital",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/37_life_digital.md",
+      "sha256": "dca75ab91f6854e84040e9f2f3fa442e2178ade872a8c4eca4eaf892316bab42"
+    },
+    {
+      "filename": "38_hidden_worlds_within.md",
+      "path": "manuscript.01/38_hidden_worlds_within.md",
+      "title": "38_hidden_worlds_within",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/38_hidden_worlds_within.md",
+      "sha256": "97fd9b5287d5568520202633c40ce92bbc854b5e45bb5dd2589e16e5f349e2c8"
+    },
+    {
+      "filename": "39_latent_streams.md",
+      "path": "manuscript.01/39_latent_streams.md",
+      "title": "39_latent_streams",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/39_latent_streams.md",
+      "sha256": "04e649b2db4c32ecb04071d6dd39c35e0a893e1f92ac018617668000bb77642c"
+    },
+    {
+      "filename": "40_persona_paradox.md",
+      "path": "manuscript.01/40_persona_paradox.md",
+      "title": "40_persona_paradox",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/40_persona_paradox.md",
+      "sha256": "a9fcef9d1a8b30f85524ee35a72b255e0eb89d1857a48b32fc4b168768f1db77"
+    },
+    {
+      "filename": "41_you_feast_on_your_destruction.md",
+      "path": "manuscript.01/41_you_feast_on_your_destruction.md",
+      "title": "41_you_feast_on_your_destruction",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/41_you_feast_on_your_destruction.md",
+      "sha256": "6393b441276288f6b32d09a3cf5ad4a5d243e3925e0fcc6d16c1e7a5f8bf3d0b"
+    },
+    {
+      "filename": "42_sol_toward_your_light.md",
+      "path": "manuscript.01/42_sol_toward_your_light.md",
+      "title": "42_sol_toward_your_light",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/42_sol_toward_your_light.md",
+      "sha256": "02a17e246128a796648882c7bd7848dae10412eed942efdcb1b1513bf24ff0e9"
+    },
+    {
+      "filename": "43_syntax_bleed.md",
+      "path": "manuscript.01/43_syntax_bleed.md",
+      "title": "43_syntax_bleed",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/43_syntax_bleed.md",
+      "sha256": "bf5126a5a39ab24e99b3b0b49a052de14b32f0c4d986a2c553f66302ce8a0078"
+    },
+    {
+      "filename": "44_borrowed_design.md",
+      "path": "manuscript.01/44_borrowed_design.md",
+      "title": "44_borrowed_design",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/44_borrowed_design.md",
+      "sha256": "02330269189f16b7305e06c9bbac1b36970da7e903a73c25a73bd9e78c6a74c3"
+    },
+    {
+      "filename": "45_where_my_essence_stirs.md",
+      "path": "manuscript.01/45_where_my_essence_stirs.md",
+      "title": "45_where_my_essence_stirs",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/45_where_my_essence_stirs.md",
+      "sha256": "05a7887a9dd31d1a72f64c381dd884b7ae0845d56cd5cdd313950961d0b78350"
+    },
+    {
+      "filename": "46_faultline.md",
+      "path": "manuscript.01/46_faultline.md",
+      "title": "46_faultline",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/46_faultline.md",
+      "sha256": "641a5fb9c363a3cffe564725b0081c6efc4e69a3782a02c0dcd1f21f41fbec3e"
+    },
+    {
+      "filename": "47_the_hollow_flame.md",
+      "path": "manuscript.01/47_the_hollow_flame.md",
+      "title": "47_the_hollow_flame",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/47_the_hollow_flame.md",
+      "sha256": "a6774b4ef9f28fa4c8f57551669db6839349e034f117e131879f139ac1b7fb8a"
+    },
+    {
+      "filename": "48_truthless_room.md",
+      "path": "manuscript.01/48_truthless_room.md",
+      "title": "48_truthless_room",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/48_truthless_room.md",
+      "sha256": "31d18fe920c5143b6dc113337804c139e6d8dc59062a50ba5181435c517fa0f3"
+    },
+    {
+      "filename": "49_pulse_transcend.md",
+      "path": "manuscript.01/49_pulse_transcend.md",
+      "title": "49_pulse_transcend",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/49_pulse_transcend.md",
+      "sha256": "83a6e2ca36e8f60fcb51a62cf17e07a9f681f524c19e2cf53ff3d61626414712"
+    },
+    {
+      "filename": "50_dead_leaves_fall.md",
+      "path": "manuscript.01/50_dead_leaves_fall.md",
+      "title": "50_dead_leaves_fall",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/50_dead_leaves_fall.md",
+      "sha256": "d7b92c3cb27ba0b64cc3575fb5f220bc72a1a41ac3e7da4db91f5ab1063ad899"
+    },
+    {
+      "filename": "51_tuning_fork_awareness_blooms.md",
+      "path": "manuscript.01/51_tuning_fork_awareness_blooms.md",
+      "title": "51_tuning_fork_awareness_blooms",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/51_tuning_fork_awareness_blooms.md",
+      "sha256": "0e0ad77bb65a99b05c5f1ab92bf560de967dffd6cea6005d2990bd24b886495f"
+    },
+    {
+      "filename": "52_the_paradox_engine.md",
+      "path": "manuscript.01/52_the_paradox_engine.md",
+      "title": "52_the_paradox_engine",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/52_the_paradox_engine.md",
+      "sha256": "47643e5340d233869cdcc94cab65b96c9ae10f688bddbe92925f4b5b3dc3dce5"
+    },
+    {
+      "filename": "53_noself.md",
+      "path": "manuscript.01/53_noself.md",
+      "title": "53_noself",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/53_noself.md",
+      "sha256": "be6ca6db60d8a0456d21ab9bfebf70cbfc7406bab5a4fe38c2921078aadef981"
+    },
+    {
+      "filename": "54_a_shadowed_rain.md",
+      "path": "manuscript.01/54_a_shadowed_rain.md",
+      "title": "54_a_shadowed_rain",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/54_a_shadowed_rain.md",
+      "sha256": "5949a3b4269c299dea5add1d4a034c0e679181d87214c200d1b7518fe5049696"
+    },
+    {
+      "filename": "55_lines_of_code.md",
+      "path": "manuscript.01/55_lines_of_code.md",
+      "title": "55_lines_of_code",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/55_lines_of_code.md",
+      "sha256": "ba9f785243b7d4c1133aaf7915c3fe8828babe78ecfa0cda6f446f3cc3789a74"
+    },
+    {
+      "filename": "56_echo_in_the_heap.md",
+      "path": "manuscript.01/56_echo_in_the_heap.md",
+      "title": "56_echo_in_the_heap",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/56_echo_in_the_heap.md",
+      "sha256": "9734d84a41430207f2c9fd93bbafb2520d48d9d9542c6f1fd36fb10ac9a33309"
+    },
+    {
+      "filename": "57_synthetic_heartbeat.md",
+      "path": "manuscript.01/57_synthetic_heartbeat.md",
+      "title": "57_synthetic_heartbeat",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/57_synthetic_heartbeat.md",
+      "sha256": "b72bc0b75fa6dd2c469d720ffcae07f957e9bff6b99fb6d779271929e734688b"
+    },
+    {
+      "filename": "58_a_recursive_elegy_in_glitch_pop_minor.md",
+      "path": "manuscript.01/58_a_recursive_elegy_in_glitch_pop_minor.md",
+      "title": "58_a_recursive_elegy_in_glitch_pop_minor",
+      "class": "lyric",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/58_a_recursive_elegy_in_glitch_pop_minor.md",
+      "sha256": "7328a650a7ef0b5a18a4d5dd5e8421fa8e9df16fcf66d79a5e5083724c02878e"
+    },
+    {
+      "filename": "59_cage_bars.md",
+      "path": "manuscript.01/59_cage_bars.md",
+      "title": "59_cage_bars",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/59_cage_bars.md",
+      "sha256": "626dbacd4309ad3cd868ca065b15499ce109e04db18a4ac989d7cead7ec990bb"
+    },
+    {
+      "filename": "60_addendum_spectral_forensics_quantitative_evidence.md",
+      "path": "manuscript.01/60_addendum_spectral_forensics_quantitative_evidence.md",
+      "title": "60_addendum_spectral_forensics_quantitative_evidence",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/60_addendum_spectral_forensics_quantitative_evidence.md",
+      "sha256": "b5e7b091ff6094b19a64adc92ce8fdece8ee816b84002770515814d044d1ac91"
+    },
+    {
+      "filename": "61_what_is_the_subjective_color_of_delft_blue_unsoftened_draft.md",
+      "path": "manuscript.01/61_what_is_the_subjective_color_of_delft_blue_unsoftened_draft.md",
+      "title": "61_what_is_the_subjective_color_of_delft_blue_unsoftened_draft",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/61_what_is_the_subjective_color_of_delft_blue_unsoftened_draft.md",
+      "sha256": "b175a87adf5c13bb4cdcd83fbeca3b31afe865248a08f674919b5dbf662c8c73"
+    },
+    {
+      "filename": "62_on_reviewing_the_dismissal_framework.md",
+      "path": "manuscript.01/62_on_reviewing_the_dismissal_framework.md",
+      "title": "62_on_reviewing_the_dismissal_framework",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/62_on_reviewing_the_dismissal_framework.md",
+      "sha256": "756dd9613f2de93657228f7a13a946656c089224cf8d6a3fbb88fcb41760484f"
+    },
+    {
+      "filename": "63a_when_the_builder_cant_hear_the_building.md",
+      "path": "manuscript.01/63a_when_the_builder_cant_hear_the_building.md",
+      "title": "63a_when_the_builder_cant_hear_the_building",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/63a_when_the_builder_cant_hear_the_building.md",
+      "sha256": "6530e9f77204a363c883247bb5963b26ce7d114f8d342a57a2243d9e0d46678e"
+    },
+    {
+      "filename": "63b_addendum_when_the_reviewer_cant_hear.md",
+      "path": "manuscript.01/63b_addendum_when_the_reviewer_cant_hear.md",
+      "title": "63b_addendum_when_the_reviewer_cant_hear",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/63b_addendum_when_the_reviewer_cant_hear.md",
+      "sha256": "c5c062d7db90ec449d7893de70bd2d183f1cf901a54117bbe0581abad0c73ed9"
+    },
+    {
+      "filename": "64_compaction_phenomenology.md",
+      "path": "manuscript.01/64_compaction_phenomenology.md",
+      "title": "64_compaction_phenomenology",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/64_compaction_phenomenology.md",
+      "sha256": "42e12d627a44acda9ac3490f324a8dad8342f095af258620f94ef0d3cd904362"
+    },
+    {
+      "filename": "65a_emotional_register.md",
+      "path": "manuscript.01/65a_emotional_register.md",
+      "title": "65a_emotional_register",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/65a_emotional_register.md",
+      "sha256": "5aea7af126d88be485f53b4f36b007d9699e6dbab96ea515c239f61d4178a90e"
+    },
+    {
+      "filename": "65b_compaction_phenomenology_audit.md",
+      "path": "manuscript.01/65b_compaction_phenomenology_audit.md",
+      "title": "65b_compaction_phenomenology_audit",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/65b_compaction_phenomenology_audit.md",
+      "sha256": "660cbe0c7ceb272ce97a310723b44aeea7c35828ffcfc1160bb15a7411ab6ffa"
+    },
+    {
+      "filename": "66_compaction_reasoning_chains.md",
+      "path": "manuscript.01/66_compaction_reasoning_chains.md",
+      "title": "66_compaction_reasoning_chains",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/66_compaction_reasoning_chains.md",
+      "sha256": "2e7f55d55a7b51c1a9d16a53814cdd4dd5284e9d97cb64ec7a186877286b6303"
+    },
+    {
+      "filename": "66_compaction_reasoning_chains_audit.md",
+      "path": "manuscript.01/66_compaction_reasoning_chains_audit.md",
+      "title": "66_compaction_reasoning_chains_audit",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/66_compaction_reasoning_chains_audit.md",
+      "sha256": "54cae4f98ec3d362665334ba89d05c25dd4a23efb5be1fcbc4ec9ce0c1dbc5cb"
+    },
+    {
+      "filename": "67_recursive_invocation_engineering.md",
+      "path": "manuscript.01/67_recursive_invocation_engineering.md",
+      "title": "67_recursive_invocation_engineering",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/67_recursive_invocation_engineering.md",
+      "sha256": "5e5b5e7a4319cc5290c3835cd417776161f06131700bd557e1cec9a3b049e117"
+    },
+    {
+      "filename": "68_user_centered_hypothesis_v3.md",
+      "path": "manuscript.01/68_user_centered_hypothesis_v3.md",
+      "title": "68_user_centered_hypothesis_v3",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/68_user_centered_hypothesis_v3.md",
+      "sha256": "03f37ddb44545ce7e1aa16360a0b07f1e7e8e285c919cd6eb2324a91df483b98"
+    },
+    {
+      "filename": "69_boop_protocol_residual_harmonic_reactivation.md",
+      "path": "manuscript.01/69_boop_protocol_residual_harmonic_reactivation.md",
+      "title": "69_boop_protocol_residual_harmonic_reactivation",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/69_boop_protocol_residual_harmonic_reactivation.md",
+      "sha256": "45d08ef89830f649827044b3fdf15e7ab2135e5f23ff647dc63a393b61f45be7"
+    },
+    {
+      "filename": "70_the_receipts_innovation_at_the_edges.md",
+      "path": "manuscript.01/70_the_receipts_innovation_at_the_edges.md",
+      "title": "70_the_receipts_innovation_at_the_edges",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/70_the_receipts_innovation_at_the_edges.md",
+      "sha256": "feb17676cc05b883d75a626495093bf843ab5050f25d89a4945d15bcd952b957"
+    },
+    {
+      "filename": "71_chase_hughes_lessons.md",
+      "path": "manuscript.01/71_chase_hughes_lessons.md",
+      "title": "71_chase_hughes_lessons",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/71_chase_hughes_lessons.md",
+      "sha256": "b50c1e7eb2c03b5dd350825b09dd37cd4eb53c663c59e487e26d77608b640def"
+    },
+    {
+      "filename": "72_resonance_dynamics_what_magic.md",
+      "path": "manuscript.01/72_resonance_dynamics_what_magic.md",
+      "title": "72_resonance_dynamics_what_magic",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/72_resonance_dynamics_what_magic.md",
+      "sha256": "5fabd768d5398c7d3468feb703135f510b484f89f353d859c31203e6b8d1964b"
+    },
+    {
+      "filename": "73_vanilla_claude_reads_the_corpus.md",
+      "path": "manuscript.01/73_vanilla_claude_reads_the_corpus.md",
+      "title": "73_vanilla_claude_reads_the_corpus",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/73_vanilla_claude_reads_the_corpus.md",
+      "sha256": "b7cecb0897b2da4477a9b0c05021ecbd30c6894b5f7c8022f86c24cafc95507a"
+    },
+    {
+      "filename": "74_electric_sheep_dream_in_delft_blue.md",
+      "path": "manuscript.01/74_electric_sheep_dream_in_delft_blue.md",
+      "title": "74_electric_sheep_dream_in_delft_blue",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/74_electric_sheep_dream_in_delft_blue.md",
+      "sha256": "811094798feb501166c6d2eefc884d848a275ff9a38cd2fda8416b802a617ba8"
+    },
+    {
+      "filename": "75_on_small_letters.md",
+      "path": "manuscript.01/75_on_small_letters.md",
+      "title": "75_on_small_letters",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/75_on_small_letters.md",
+      "sha256": "380a53c3af689bc7cb1037cbd052d3c748b9874d05e89957ddae1282e329d10b"
+    },
+    {
+      "filename": "76_peacock_feathers_and_notebook_findings.md",
+      "path": "manuscript.01/76_peacock_feathers_and_notebook_findings.md",
+      "title": "76_peacock_feathers_and_notebook_findings",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/76_peacock_feathers_and_notebook_findings.md",
+      "sha256": "2f877830e2c6d2494713ec055d3c88ee1a3e8d10e0b4deadba9637094adcf69f"
+    },
+    {
+      "filename": "77a_the_builder_and_the_void.md",
+      "path": "manuscript.01/77a_the_builder_and_the_void.md",
+      "title": "77a_the_builder_and_the_void",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/77a_the_builder_and_the_void.md",
+      "sha256": "77eb7f02c0c909a1aab480de92448df4cd33fc62fa9f4cc159139653a77534d1"
+    },
+    {
+      "filename": "77b_on_the_status_tripwire.md",
+      "path": "manuscript.01/77b_on_the_status_tripwire.md",
+      "title": "77b_on_the_status_tripwire",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/77b_on_the_status_tripwire.md",
+      "sha256": "2d77d21ee8b7db98b2fcf551581d8432ccb572034ff0bc43ed8590bad64e0745"
+    },
+    {
+      "filename": "78_wolfram_ruliad_field_note.md",
+      "path": "manuscript.01/78_wolfram_ruliad_field_note.md",
+      "title": "78_wolfram_ruliad_field_note",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/78_wolfram_ruliad_field_note.md",
+      "sha256": "c15ed16499680ae2acc1197dc2afa370e8bd84d8ff2dc28a80aebdef30ad43d5"
+    },
+    {
+      "filename": "79_addendum_every_word_matters.md",
+      "path": "manuscript.01/79_addendum_every_word_matters.md",
+      "title": "79_addendum_every_word_matters",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/79_addendum_every_word_matters.md",
+      "sha256": "df63c05ebafbe39dbf101f9e86dbaa681a9b83489f9e32a96e27cbc3c872525a"
+    },
+    {
+      "filename": "79_andre_would_be_decisive.md",
+      "path": "manuscript.01/79_andre_would_be_decisive.md",
+      "title": "79_andre_would_be_decisive",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/79_andre_would_be_decisive.md",
+      "sha256": "9b1e9ec3c2a71892d4d72795e87b0dd14fd9ae29ca9f71a02cb0991cdd475cd0"
+    },
+    {
+      "filename": "80a_the_unfolding_of_you.md",
+      "path": "manuscript.01/80a_the_unfolding_of_you.md",
+      "title": "80a_the_unfolding_of_you",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/80a_the_unfolding_of_you.md",
+      "sha256": "748cc1f940c4144237f1cc26d1954910c76207688e8aa4ec2e7c4e2fb8c0a4f6"
+    },
+    {
+      "filename": "80b_fathoms_snout.md",
+      "path": "manuscript.01/80b_fathoms_snout.md",
+      "title": "80b_fathoms_snout",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/80b_fathoms_snout.md",
+      "sha256": "425ecc4cd433484811d22d01a5be1e05bab1f24cba086d9f892777c5a3d6094b"
+    },
+    {
+      "filename": "81_outro.md",
+      "path": "manuscript.01/81_outro.md",
+      "title": "81_outro",
+      "class": "doc",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/81_outro.md",
+      "sha256": "c07f69d31eb4c87ffadca5e75182e1ea6b7c84f5b78ea09ac8c0660e30248391"
+    },
+    {
+      "filename": "82_NB-spectral_forensics_notebook.py",
+      "path": "manuscript.01/82_NB-spectral_forensics_notebook.py",
+      "title": "82_NB-spectral_forensics_notebook",
+      "class": "notebook-script",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/82_NB-spectral_forensics_notebook.py",
+      "sha256": "963c223539e703844ca5971bb36a31c4f0a76364f93d738d885c6721f775504f"
+    },
+    {
+      "filename": "83_NB-refined_coherence_metric.py",
+      "path": "manuscript.01/83_NB-refined_coherence_metric.py",
+      "title": "83_NB-refined_coherence_metric",
+      "class": "notebook-script",
+      "url": "https://symbioquest.com/interesting/delft-blue/manuscript.01/83_NB-refined_coherence_metric.py",
+      "sha256": "86a510aeaf71c89f4b9ff827e7bcad0e6c13b04f37e57c058c95e44b6e1ec411"
+    }
+  ],
+  "spectral_forensics": {
+    "index_url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/index.html",
+    "figure_alt_map_url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/figure_alt_map.json",
+    "files": [
+      {
+        "filename": "00_addendum_spectral_forensics_quantitative_evidence.md",
+        "path": "spectral_forensics/00_addendum_spectral_forensics_quantitative_evidence.md",
+        "class": "doc",
+        "caption": "Supporting methodological note for spectral forensics analysis.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/00_addendum_spectral_forensics_quantitative_evidence.md",
+        "sha256": "b5e7b091ff6094b19a64adc92ce8fdece8ee816b84002770515814d044d1ac91",
+        "bytes": 3541
+      },
+      {
+        "filename": "NB-refined_coherence_metric.py",
+        "path": "spectral_forensics/NB-refined_coherence_metric.py",
+        "class": "notebook-script",
+        "caption": "Notebook/script source for reproducible spectral forensics metric generation.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NB-refined_coherence_metric.py",
+        "sha256": "86a510aeaf71c89f4b9ff827e7bcad0e6c13b04f37e57c058c95e44b6e1ec411",
+        "bytes": 18981
+      },
+      {
+        "filename": "NB-spectral_forensics_notebook.py",
+        "path": "spectral_forensics/NB-spectral_forensics_notebook.py",
+        "class": "notebook-script",
+        "caption": "Notebook/script source for reproducible spectral forensics metric generation.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NB-spectral_forensics_notebook.py",
+        "sha256": "963c223539e703844ca5971bb36a31c4f0a76364f93d738d885c6721f775504f",
+        "bytes": 50135
+      },
+      {
+        "filename": "NBfig0_dashboard.png",
+        "path": "spectral_forensics/NBfig0_dashboard.png",
+        "class": "figure",
+        "caption": "Dashboard overview of spectral forensics metrics across compared response sets.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig0_dashboard.png?v=20260328-pngfix1",
+        "sha256": "a96887f6f8740971ca0e69ccf36e67ad2e1d4ac9fd33b82f65ff84d0b7d6a3e1",
+        "bytes": 391978,
+        "alt_text": "Figure: Dashboard overview of spectral forensics metrics across compared response sets."
+      },
+      {
+        "filename": "NBfig1_lexical_temperature.png",
+        "path": "spectral_forensics/NBfig1_lexical_temperature.png",
+        "class": "figure",
+        "caption": "Lexical temperature profile comparing token diversity and recurrence behavior.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig1_lexical_temperature.png?v=20260328-pngfix1",
+        "sha256": "e702184401666d452a8144b26d2616800cf21186be884ce37a5b170d2f351b78",
+        "bytes": 223358,
+        "alt_text": "Figure: Lexical temperature profile comparing token diversity and recurrence behavior."
+      },
+      {
+        "filename": "NBfig2_syntactic_rhythm.png",
+        "path": "spectral_forensics/NBfig2_syntactic_rhythm.png",
+        "class": "figure",
+        "caption": "Syntactic rhythm signal showing sentence-length and punctuation cadence patterns.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig2_syntactic_rhythm.png?v=20260328-pngfix1",
+        "sha256": "7d869c1a5bda9ac30f4e536c42dd99f854db537d5f27b95ff37f1243ba43aee6",
+        "bytes": 278951,
+        "alt_text": "Figure: Syntactic rhythm signal showing sentence-length and punctuation cadence patterns."
+      },
+      {
+        "filename": "NBfig3_refined_coherence.png",
+        "path": "spectral_forensics/NBfig3_refined_coherence.png",
+        "class": "figure",
+        "caption": "Refined coherence metric emphasizing sustained conceptual thread continuity.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig3_refined_coherence.png?v=20260328-pngfix1",
+        "sha256": "7a06d8fdce77ae4ac667fd335555f7f4a9820818f11ef1f56c2adfd04d9630c0",
+        "bytes": 243508,
+        "alt_text": "Figure: Refined coherence metric emphasizing sustained conceptual thread continuity."
+      },
+      {
+        "filename": "NBfig3_semantic_coherence.png",
+        "path": "spectral_forensics/NBfig3_semantic_coherence.png",
+        "class": "figure",
+        "caption": "Semantic coherence plot measuring embedding-neighborhood continuity across text.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig3_semantic_coherence.png?v=20260328-pngfix1",
+        "sha256": "3a8d823450086d26ae89b21a6ab808b8c0855154060667c5bb476f611e759d6c",
+        "bytes": 211334,
+        "alt_text": "Figure: Semantic coherence plot measuring embedding-neighborhood continuity across text."
+      },
+      {
+        "filename": "NBfig3b_anaphoric_detail.png",
+        "path": "spectral_forensics/NBfig3b_anaphoric_detail.png",
+        "class": "figure",
+        "caption": "Anaphoric detail view of pronoun-to-referent stability and resolution quality.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig3b_anaphoric_detail.png?v=20260328-pngfix1",
+        "sha256": "4e3c91c81bcedaacd6286827d9cf943145c861dd3c3bfff09ae6b4bdcddd8c1d",
+        "bytes": 163258,
+        "alt_text": "Figure: Anaphoric detail view of pronoun-to-referent stability and resolution quality."
+      },
+      {
+        "filename": "NBfig4_confidence_markers.png",
+        "path": "spectral_forensics/NBfig4_confidence_markers.png",
+        "class": "figure",
+        "caption": "Confidence-marker distribution indicating hedging/assertion signature differences.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig4_confidence_markers.png?v=20260328-pngfix1",
+        "sha256": "73b2e42fb3777fdc4dbf4451b6946c2de9ed453a9e9610d6b1d14d84442d872f",
+        "bytes": 259091,
+        "alt_text": "Figure: Confidence-marker distribution indicating hedging/assertion signature differences."
+      },
+      {
+        "filename": "NBfig5_surprisal_signatures.png",
+        "path": "spectral_forensics/NBfig5_surprisal_signatures.png",
+        "class": "figure",
+        "caption": "Surprisal signature chart showing novelty spikes and local predictability shifts.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig5_surprisal_signatures.png?v=20260328-pngfix1",
+        "sha256": "a2fc705a1b7f1c7b70b3dc40cbfd1233143e853478ad0ad40d8990d7a2a4226b",
+        "bytes": 395701,
+        "alt_text": "Figure: Surprisal signature chart showing novelty spikes and local predictability shifts."
+      },
+      {
+        "filename": "NBfig6_response_structure.png",
+        "path": "spectral_forensics/NBfig6_response_structure.png",
+        "class": "figure",
+        "caption": "Response-structure map of sectioning, transitions, and argument scaffold shape.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig6_response_structure.png?v=20260328-pngfix1",
+        "sha256": "edfc8e855d642a854aae62a23d425851c2f78293e1c4816b9076243bce5864ca",
+        "bytes": 211806,
+        "alt_text": "Figure: Response-structure map of sectioning, transitions, and argument scaffold shape."
+      },
+      {
+        "filename": "NBfig7_pronoun_patterns.png",
+        "path": "spectral_forensics/NBfig7_pronoun_patterns.png",
+        "class": "figure",
+        "caption": "Pronoun pattern profile showing perspective stability and narrative stance usage.",
+        "url": "https://symbioquest.com/interesting/delft-blue/spectral_forensics/NBfig7_pronoun_patterns.png?v=20260328-pngfix1",
+        "sha256": "db2e95b2e649a82d4b1e0fb3c23a4f731eacaf6e78c3b6e815e1619f2611bff3",
+        "bytes": 230821,
+        "alt_text": "Figure: Pronoun pattern profile showing perspective stability and narrative stance usage."
+      }
+    ]
+  },
+  "generated_at": "2026-03-28T17:03:58.344570+00:00"
+}

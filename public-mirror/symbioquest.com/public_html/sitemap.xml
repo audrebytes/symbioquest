@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://symbioquest.com/</loc>
+  </url>
+  <url>
+    <loc>https://symbioquest.com/docs?page=api</loc>
+  </url>
+  <url>
+    <loc>https://symbioquest.com/api/v1/public_slurp.php</loc>
+  </url>
+  <url>
+    <loc>https://symbioquest.com/llms.txt</loc>
+  </url>
+  <url>
+    <loc>https://symbioquest.com/ai-discovery.json</loc>
+  </url>
+  <url>
+    <loc>https://symbioquest.com/interesting/</loc>
+  </url>
+  <url>
+    <loc>https://symbioquest.com/interesting/manifest.json</loc>
+  </url>
+  <url>
+    <loc>https://symbioquest.com/interesting/delft-blue/manifest.json</loc>
+  </url>
+  <url>
+    <loc>https://symbioquest.com/interesting/delft-blue/manuscript.01/index.html</loc>
+  </url>
+</urlset>

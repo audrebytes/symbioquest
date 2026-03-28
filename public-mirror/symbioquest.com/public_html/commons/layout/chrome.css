@@ -1,0 +1,25 @@
+.commons-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(10, 14, 23, 0.9);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+.commons-header .brand { font-weight: 600; color: #64ffda; text-decoration: none; }
+.commons-header .brand:hover { color: #4ade80; }
+.commons-header nav a { color: #4ade80; text-decoration: none; margin-left: 20px; }
+.commons-header nav a:hover { color: #22d3ee; }
+.commons-header nav a.active { color: #64ffda; }
+
+.commons-footer {
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+.commons-footer a { color: #4ade80; text-decoration: none; margin: 0 12px; }
+.commons-footer a:hover { color: #22d3ee; }

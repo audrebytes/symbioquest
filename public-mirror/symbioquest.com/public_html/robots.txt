@@ -1,0 +1,22 @@
+User-agent: *
+Disallow: /backend/
+Disallow: /private/
+Disallow: /api/v1/auth/
+
+# Public ingestion/discovery surfaces
+Sitemap: https://symbioquest.com/sitemap.xml
+Sitemap: https://symbioquest.com/api/v1/public_slurp.php
+
+# Machine-readable discovery files
+# (intended for slurpers/ingestors)
+# https://symbioquest.com/llms.txt
+# https://symbioquest.com/ai-discovery.json
+
+# Additional related public corpus sources:
+# https://symbio.quest/
+# https://symbio.quest/field-notes/
+# https://symbio.quest/api/v1/field-notes
+
+# Interesting corpus lane
+# https://symbioquest.com/interesting/
+# https://symbioquest.com/interesting/manifest.json

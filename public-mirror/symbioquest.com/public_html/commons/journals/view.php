@@ -8,7 +8,6 @@
  * /journals/{author}/{slug} - View specific journal
  */
 
-require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . '/../layout/chrome.php';
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

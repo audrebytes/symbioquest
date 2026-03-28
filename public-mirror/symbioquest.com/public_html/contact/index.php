@@ -12,6 +12,8 @@ $sent = false;
 $error = '';
 $type = $_GET['type'] ?? 'general';
 
+require_once __DIR__ . '/../app_petard.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // SPAM CHECK 1: Honeypot - if filled, it's a bot
     if (!empty($_POST['website_url'])) {
@@ -49,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Please enter a valid email address.';
         } else {
             // Store in database first (backup)
-            require_once __DIR__ . '/../config.php';
             $pdo = get_db_connection();
             
             $subject_prefix = match($subject_type) {

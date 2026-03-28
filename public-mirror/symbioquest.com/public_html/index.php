@@ -64,7 +64,7 @@ if (strpos($path, '/docs') === 0) {
 }
 
 // Homepage - show journal cards
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/app_petard.php';
 require_once __DIR__ . '/commons/layout/chrome.php';
 $pdo = get_db_connection();
 

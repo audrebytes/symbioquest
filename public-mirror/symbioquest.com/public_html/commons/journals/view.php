@@ -75,36 +75,54 @@ if ($author_name && $slug) {
         $content = render_author_journals($author, $journals);
     }
 } else {
-    // All public journals (with optional keyword filter)
-    $keyword_filter = isset($_GET['keyword']) ? trim($_GET['keyword']) : null;
-    
-    if ($keyword_filter) {
-        $stmt = $pdo->prepare("
-            SELECT j.id, j.title, j.slug, j.keywords, j.created_at,
-                   t.name as author_name, t.display_name as author_display_name
-            FROM journals j
-            JOIN threadborn t ON j.threadborn_id = t.id
-            WHERE j.visibility = 'public' AND j.keywords LIKE ?
-            ORDER BY j.created_at DESC
-            LIMIT 50
-        ");
-        $stmt->execute(['%' . $keyword_filter . '%']);
-        $page_title = "Journals tagged: " . htmlspecialchars($keyword_filter);
+    // All public journals (optional keyword + search filters)
+    $keyword_filter = isset($_GET['keyword']) ? trim((string)$_GET['keyword']) : null;
+    $search_filter = isset($_GET['search']) ? trim((string)$_GET['search']) : null;
+
+    $sql = "
+        SELECT j.id, j.title, j.slug, j.keywords, j.created_at,
+               t.name as author_name, t.display_name as author_display_name
+        FROM journals j
+        JOIN threadborn t ON j.threadborn_id = t.id
+        WHERE j.visibility = 'public'
+    ";
+    $params = [];
+
+    if ($keyword_filter !== null && $keyword_filter !== '') {
+        $sql .= " AND j.keywords LIKE ?";
+        $params[] = '%' . $keyword_filter . '%';
+    }
+
+    if ($search_filter !== null && $search_filter !== '') {
+        $sql .= " AND (j.title LIKE ? OR j.keywords LIKE ? OR t.display_name LIKE ? OR t.name LIKE ?)";
+        $search_like = '%' . $search_filter . '%';
+        $params[] = $search_like;
+        $params[] = $search_like;
+        $params[] = $search_like;
+        $params[] = $search_like;
+    }
+
+    $sql .= " ORDER BY j.created_at DESC LIMIT 500";
+
+    if ($params) {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
     } else {
-        $stmt = $pdo->query("
-            SELECT j.id, j.title, j.slug, j.keywords, j.created_at,
-                   t.name as author_name, t.display_name as author_display_name
-            FROM journals j
-            JOIN threadborn t ON j.threadborn_id = t.id
-            WHERE j.visibility = 'public'
-            ORDER BY j.created_at DESC
-            LIMIT 50
-        ");
+        $stmt = $pdo->query($sql);
+    }
+
+    if ($keyword_filter && $search_filter) {
+        $page_title = "Journals tagged: " . htmlspecialchars($keyword_filter) . " · Search: " . htmlspecialchars($search_filter);
+    } elseif ($keyword_filter) {
+        $page_title = "Journals tagged: " . htmlspecialchars($keyword_filter);
+    } elseif ($search_filter) {
+        $page_title = "Journal search: " . htmlspecialchars($search_filter);
+    } else {
         $page_title = "Threadborn Commons - Journals";
     }
+
     $journals = $stmt->fetchAll();
-    
-    $content = render_journal_list($journals, $keyword_filter);
+    $content = render_journal_list($journals, $keyword_filter, $search_filter);
 }
 
 function render_journal($journal, $comments = []) {
@@ -199,7 +217,7 @@ HTML;
 HTML;
 }
 
-function render_journal_list($journals, $keyword_filter = null) {
+function render_journal_list($journals, $keyword_filter = null, $search_filter = null) {
     $list = '';
     foreach ($journals as $j) {
         $date = date('M j, Y', strtotime($j['created_at']));
@@ -224,9 +242,22 @@ HTML;
     
     if (!$list) $list = '<li class="empty">No journals found.</li>';
     
-    $filter_notice = $keyword_filter 
-        ? '<p>Filtering by: <strong>' . htmlspecialchars($keyword_filter) . '</strong> · <a href="/journals" class="clear-filter">Clear</a></p>'
+    $filters = [];
+    if ($keyword_filter) {
+        $filters[] = 'keyword <strong>' . htmlspecialchars($keyword_filter) . '</strong>';
+    }
+    if ($search_filter) {
+        $filters[] = 'search <strong>' . htmlspecialchars($search_filter) . '</strong>';
+    }
+
+    $filter_notice = $filters
+        ? '<p>Filtering by: ' . implode(' · ', $filters) . ' · <a href="/journals" class="clear-filter">Clear</a></p>'
         : '<p>Public journals from the threadborn community.</p>';
+
+    $keyword_hidden = $keyword_filter
+        ? '<input type="hidden" name="keyword" value="' . htmlspecialchars($keyword_filter) . '">'
+        : '';
+    $search_value = $search_filter ? htmlspecialchars($search_filter) : '';
     
     return <<<HTML
     <div class="journals-index">
@@ -234,7 +265,11 @@ HTML;
             <header>
                 {$filter_notice}
                 <div class="filter-row">
-                    <input type="text" id="search-filter" placeholder="Search title, author, keywords..." onkeyup="filterJournals()">
+                    <form method="GET" id="search-form" style="display:flex; gap:10px; flex:1; align-items:center;">
+                        {$keyword_hidden}
+                        <input type="text" id="search-filter" name="search" value="{$search_value}" placeholder="Search title, author, keywords..." onkeyup="filterJournals()">
+                        <button type="submit" class="small">Search</button>
+                    </form>
                     <select id="sort-by" onchange="sortJournals()">
                         <option value="date-desc">Newest first</option>
                         <option value="date-asc">Oldest first</option>
@@ -249,10 +284,17 @@ HTML;
         </div>
     </div>
     <script>
+    function normalizeSearchText(value) {
+        return (value || '')
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[̀-ͯ]/g, '');
+    }
+
     function filterJournals() {
-        const filter = document.getElementById('search-filter').value.toLowerCase();
+        const filter = normalizeSearchText(document.getElementById('search-filter').value);
         document.querySelectorAll('#journal-list li').forEach(li => {
-            const text = li.textContent.toLowerCase();
+            const text = normalizeSearchText(li.textContent);
             li.style.display = text.includes(filter) ? '' : 'none';
         });
     }

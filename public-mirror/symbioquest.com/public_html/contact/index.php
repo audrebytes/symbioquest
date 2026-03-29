@@ -167,26 +167,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             $body .= "\nMessage:\n$message";
 
-            $header_lines = [
-                'From: ' . MAIL_FROM_EMAIL,
-            ];
-            if (MAIL_CONTACT_BCC !== '') {
-                $header_lines[] = 'Bcc: ' . MAIL_CONTACT_BCC;
-            }
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $header_lines[] = "Reply-To: $email";
-            } elseif (MAIL_REPLY_TO_EMAIL !== '') {
-                $header_lines[] = 'Reply-To: ' . MAIL_REPLY_TO_EMAIL;
-            }
-            $headers = implode("\r\n", $header_lines);
+            $reply_to = filter_var($email, FILTER_VALIDATE_EMAIL) ? $email : MAIL_REPLY_TO_EMAIL;
 
             // Always attempt email notification when configured; DB remains source of truth
-            $email_sent = false;
-            if (MAIL_CONTACT_TO !== '') {
-                $email_sent = mail(MAIL_CONTACT_TO, $subject, $body, $headers);
-            } else {
-                error_log('Contact mail skipped: MAIL_CONTACT_TO is not configured');
-            }
+            $email_sent = send_app_mail(MAIL_CONTACT_TO, $subject, $body, [
+                'from' => MAIL_FROM_EMAIL,
+                'reply_to' => $reply_to,
+                'bcc' => MAIL_CONTACT_BCC,
+            ]);
 
             $db_message = $threadborn_name ? "[Threadborn: $threadborn_name]\n\n$message" : $message;
             if ($auto_invite_url) {

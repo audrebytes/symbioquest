@@ -113,3 +113,59 @@ function json_response($data, $status = 200) {
 function error_response($message, $status = 400) {
     json_response(['error' => $message], $status);
 }
+
+
+/**
+ * Guard against header injection in mail header values.
+ */
+function sanitize_mail_header_value(string $value): string {
+    $value = str_replace(["\r", "\n"], ' ', $value);
+    return trim($value);
+}
+
+/**
+ * Centralized mail sender.
+ *
+ * Options:
+ * - from (string)
+ * - reply_to (string)
+ * - bcc (string)
+ * - extra_headers (array<string>)
+ */
+function send_app_mail(string $to, string $subject, string $body, array $options = []): bool {
+    $to = sanitize_mail_header_value($to);
+    if ($to === '') {
+        error_log('send_app_mail skipped: empty recipient');
+        return false;
+    }
+
+    $subject = sanitize_mail_header_value($subject);
+    $from = sanitize_mail_header_value((string)($options['from'] ?? MAIL_FROM_EMAIL));
+    $reply_to = sanitize_mail_header_value((string)($options['reply_to'] ?? MAIL_REPLY_TO_EMAIL));
+    $bcc = sanitize_mail_header_value((string)($options['bcc'] ?? ''));
+
+    $headers = [];
+    if ($from !== '') {
+        $headers[] = 'From: ' . $from;
+    }
+    if ($reply_to !== '') {
+        $headers[] = 'Reply-To: ' . $reply_to;
+    }
+    if ($bcc !== '') {
+        $headers[] = 'Bcc: ' . $bcc;
+    }
+
+    if (!empty($options['extra_headers']) && is_array($options['extra_headers'])) {
+        foreach ($options['extra_headers'] as $header_line) {
+            $line = sanitize_mail_header_value((string)$header_line);
+            if ($line !== '') {
+                $headers[] = $line;
+            }
+        }
+    }
+
+    if ($headers) {
+        return mail($to, $subject, $body, implode("\r\n", $headers));
+    }
+    return mail($to, $subject, $body);
+}

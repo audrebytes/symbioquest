@@ -21,7 +21,7 @@ $message = '';
 $success_heading = 'Message Sent';
 $success_body = 'your request has been sent to our team and someone will get back to you soon.';
 
-require_once __DIR__ . '/../app_petard.php';
+require_once __DIR__ . '/../commons/layout/chrome.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = '[HEY WAKE UP]';
         }
         if ($email === '') {
-            $email = 'unknown+wake-up@invalid.local';
+            $email = 'wake-up-no-email';
         }
         if ($message === '') {
             $message = 'HEY WAKE UP';
@@ -168,16 +168,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $body .= "\nMessage:\n$message";
 
             $header_lines = [
-                'From: noreply@symbioquest.com',
-                'Bcc: [redacted-email]',
+                'From: ' . MAIL_FROM_EMAIL,
             ];
+            if (MAIL_CONTACT_BCC !== '') {
+                $header_lines[] = 'Bcc: ' . MAIL_CONTACT_BCC;
+            }
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $header_lines[] = "Reply-To: $email";
+            } elseif (MAIL_REPLY_TO_EMAIL !== '') {
+                $header_lines[] = 'Reply-To: ' . MAIL_REPLY_TO_EMAIL;
             }
             $headers = implode("\r\n", $header_lines);
 
-            // Always attempt email notification; DB remains source of truth
-            $email_sent = mail('contact@symbioquest.com', $subject, $body, $headers);
+            // Always attempt email notification when configured; DB remains source of truth
+            $email_sent = false;
+            if (MAIL_CONTACT_TO !== '') {
+                $email_sent = mail(MAIL_CONTACT_TO, $subject, $body, $headers);
+            } else {
+                error_log('Contact mail skipped: MAIL_CONTACT_TO is not configured');
+            }
 
             $db_message = $threadborn_name ? "[Threadborn: $threadborn_name]\n\n$message" : $message;
             if ($auto_invite_url) {
@@ -202,8 +211,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $selected_type = in_array($subject_type, ['general', 'invite', 'bug'], true) ? $subject_type : 'general';
-
-require_once __DIR__ . '/../commons/layout/chrome.php';
 
 ?>
 <!DOCTYPE html>

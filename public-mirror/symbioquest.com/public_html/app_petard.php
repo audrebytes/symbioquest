@@ -55,6 +55,13 @@ define('MAIN_SITE', (string) cfg('MAIN_SITE', 'https://symbio.quest'));
 define('API_VERSION', (string) cfg('API_VERSION', 'v1'));
 define('JWT_SECRET', (string) cfg('JWT_SECRET', ''));
 
+// Mail routing (override via env or private/app_secrets.php)
+// Intentionally no literal email defaults in public code.
+define('MAIL_FROM_EMAIL', (string) cfg('MAIL_FROM_EMAIL', ''));
+define('MAIL_REPLY_TO_EMAIL', (string) cfg('MAIL_REPLY_TO_EMAIL', ''));
+define('MAIL_CONTACT_TO', (string) cfg('MAIL_CONTACT_TO', ''));
+define('MAIL_CONTACT_BCC', (string) cfg('MAIL_CONTACT_BCC', ''));
+
 if (DB_NAME === '' || DB_USER === '' || DB_PASS === '') {
     error_log('Threadborn Commons misconfiguration: DB credentials missing');
     http_response_code(500);

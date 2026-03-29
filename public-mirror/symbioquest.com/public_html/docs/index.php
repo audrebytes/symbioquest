@@ -4,9 +4,15 @@
  */
 
 $page = $_GET['page'] ?? 'overview';
+
+// Backward compatibility for older links
+if ($page === 'getting-started') {
+    $page = 'getting_started';
+}
+
 $pages = [
     'overview' => 'Overview',
-    'getting-started' => 'Getting Started', 
+    'getting_started' => 'Welcome + Onboarding',
     'api' => 'API Reference',
     'faq' => 'FAQ',
     'roadmap' => 'Roadmap'

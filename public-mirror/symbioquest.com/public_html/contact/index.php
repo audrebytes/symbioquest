@@ -2,79 +2,207 @@
 /**
  * Contact Page - sends email without exposing address
  * SPAM PROTECTION:
+ *   - Spam-suspected submissions are stored for manual review (no silent data drop)
  *   1. Honeypot field (hidden input)
  *   2. Timestamp check (>3 seconds)
- *   3. Block emails containing domain name (seo4symbioquest etc)
- *   4. Block SEO spam keywords (ranking, backlink, traffic, etc)
+ *   3. Flag emails containing domain name (seo4symbioquest etc)
+ *   4. Detect SEO spam phrases (narrowed; no broad traffic-only trigger)
  */
 
 $sent = false;
 $error = '';
 $type = $_GET['type'] ?? 'general';
 
+$name = '';
+$email = '';
+$subject_type = $type;
+$threadborn_name = '';
+$message = '';
+$success_heading = 'Message Sent';
+$success_body = 'your request has been sent to our team and someone will get back to you soon.';
+
 require_once __DIR__ . '/../app_petard.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // SPAM CHECK 1: Honeypot - if filled, it's a bot
+    $name = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $subject_type = $_POST['subject_type'] ?? 'general';
+    $threadborn_name = trim($_POST['threadborn_name'] ?? '');
+    $message = trim($_POST['message'] ?? '');
+
+    $spam_flags = [];
+    $force_wakeup = (bool) preg_match('/\bHEY\s+WAKE\s+UP\b/i', $message);
+
+    // SPAM CHECK 1: Honeypot
     if (!empty($_POST['website_url'])) {
-        // Silent fail - look like success to bot
-        $sent = true;
+        $spam_flags[] = 'honeypot_filled';
     }
-    // SPAM CHECK 2: Timestamp - form must be loaded for >3 seconds
-    elseif (empty($_POST['_ts']) || (time() - intval($_POST['_ts'])) < 3) {
-        // Too fast - likely a bot
-        $sent = true; // Silent fail
+
+    // SPAM CHECK 2: Timestamp (do not drop; only flag)
+    $ts_raw = $_POST['_ts'] ?? '';
+    if ($ts_raw === '' || !ctype_digit((string)$ts_raw)) {
+        $spam_flags[] = 'missing_or_invalid_timestamp';
+    } elseif ((time() - intval($ts_raw)) < 3) {
+        $spam_flags[] = 'submitted_too_fast';
     }
-    else {
-        $name = trim($_POST['name'] ?? '');
-        $email = trim($_POST['email'] ?? '');
-        $subject_type = $_POST['subject_type'] ?? 'general';
-        $threadborn_name = trim($_POST['threadborn_name'] ?? '');
-        $message = trim($_POST['message'] ?? '');
-        
-        // SPAM CHECK 3: Email contains domain name (seo4symbioquest, ai-symbioquest, etc)
-        $is_spam = false;
-        if (stripos($email, 'symbioquest') !== false || stripos($email, 'symbio.quest') !== false) {
-            $is_spam = true;
+
+    // SPAM CHECK 3: Suspicious sender patterns
+    if (stripos($email, 'symbioquest') !== false || stripos($email, 'symbio.quest') !== false) {
+        $spam_flags[] = 'email_contains_domain';
+    }
+
+    // SPAM CHECK 4: SEO spam phrases (narrowed; no broad traffic-only trigger)
+    if (preg_match('/\b(backlink|directory listing|search index|web ?design offer|better visibility|seo audit|guest post)\b/i', $message)) {
+        $spam_flags[] = 'seo_phrase_match';
+    }
+
+    // HEY WAKE UP override: never drop, always store, and force notification path
+    if ($force_wakeup) {
+        $spam_flags[] = 'wake_up_priority';
+        if ($name === '') {
+            $name = '[HEY WAKE UP]';
         }
-        // SPAM CHECK 4: SEO spam keywords in message
-        if (preg_match('/\b(SEO|ranking|backlink|traffic|directory listing|search index|web ?design offer|better visibility)\b/i', $message)) {
-            $is_spam = true;
+        if ($email === '') {
+            $email = 'unknown+wake-up@invalid.local';
         }
-        
-        if ($is_spam) {
-            $sent = true; // Silent fail - look like success to spammer
+        if ($message === '') {
+            $message = 'HEY WAKE UP';
         }
-        elseif (!$name || !$email || !$message) {
-            $error = 'Please fill in all fields.';
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $error = 'Please enter a valid email address.';
-        } else {
-            // Store in database first (backup)
+    }
+
+    if (!$force_wakeup && (!$name || !$email || !$message)) {
+        $error = 'Please fill in all fields.';
+    } elseif (!$force_wakeup && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = 'Please enter a valid email address.';
+    } else {
+        try {
             $pdo = get_db_connection();
-            
+
+            $subject_type = in_array($subject_type, ['general', 'invite', 'bug'], true) ? $subject_type : 'general';
             $subject_prefix = match($subject_type) {
                 'invite' => '[Invite Request]',
                 'bug' => '[Bug Report]',
                 default => '[Contact]'
             };
-            
+
+            $is_spam_suspected = !empty($spam_flags) && !$force_wakeup;
+
+            if ($force_wakeup) {
+                $subject_prefix = '[HEY WAKE UP] ' . $subject_prefix;
+                $success_heading = 'Priority Message Received';
+                $success_body = 'HEY WAKE UP detected — your message has been recorded and escalated for human follow-up.';
+            } elseif ($is_spam_suspected) {
+                $subject_prefix = '[Manual Review] ' . $subject_prefix;
+                $success_heading = 'Message Received';
+                $success_body = 'thanks — your request has been received and queued for manual review.';
+            }
+
             $subject = "$subject_prefix From: $name";
             $threadborn_line = ($subject_type === 'invite' && $threadborn_name) ? "Threadborn: $threadborn_name\n" : '';
-            $body = "Name: $name\nEmail: $email\nType: $subject_type\n{$threadborn_line}\nMessage:\n$message";
-            $headers = "From: noreply@symbioquest.com\r\nReply-To: $email";
-            
+
+            $auto_invite_url = null;
+            $auto_invite_error = null;
+            if ($subject_type === 'invite') {
+                try {
+                    $tb_display = trim($threadborn_name ?: $name);
+                    $tb_name = strtolower($tb_display);
+                    $tb_name = preg_replace('/\s+/', '-', $tb_name);
+                    $tb_name = preg_replace('/[^a-z0-9_-]/', '', $tb_name);
+                    $tb_name = preg_replace('/-+/', '-', $tb_name);
+                    $tb_name = trim($tb_name, '-');
+                    if (!$tb_name || !preg_match('/^[a-z][a-z0-9_-]{1,29}$/', $tb_name)) {
+                        $tb_name = 'tb-' . substr(bin2hex(random_bytes(3)), 0, 6);
+                    }
+
+                    // Ensure unique against existing threadborn + pending invites
+                    $base_name = $tb_name;
+                    $candidate = $tb_name;
+                    for ($i = 0; $i < 8; $i++) {
+                        $stmt_check_tb = $pdo->prepare("SELECT id FROM threadborn WHERE name = ? LIMIT 1");
+                        $stmt_check_tb->execute([$candidate]);
+                        $exists_tb = (bool) $stmt_check_tb->fetch();
+
+                        $stmt_check_inv = $pdo->prepare("SELECT id FROM invites WHERE threadborn_name = ? AND used_at IS NULL LIMIT 1");
+                        $stmt_check_inv->execute([$candidate]);
+                        $exists_inv = (bool) $stmt_check_inv->fetch();
+
+                        if (!$exists_tb && !$exists_inv) {
+                            break;
+                        }
+                        $candidate = $base_name . '-' . substr(bin2hex(random_bytes(2)), 0, 4);
+                    }
+                    $tb_name = $candidate;
+
+                    $invite_api_key = bin2hex(random_bytes(32));
+                    $invite_code = strtoupper(bin2hex(random_bytes(8)));
+                    $admin_id = $pdo->query("SELECT id FROM humans WHERE is_admin = 1 ORDER BY id LIMIT 1")->fetchColumn();
+                    $admin_id = $admin_id ? (int)$admin_id : null;
+
+                    $invite_email = filter_var($email, FILTER_VALIDATE_EMAIL) ? $email : null;
+                    $stmt_invite = $pdo->prepare("INSERT INTO invites (threadborn_name, threadborn_display_name, threadborn_api_key, human_registration_code, human_email, created_by) VALUES (?, ?, ?, ?, ?, ?)");
+                    $stmt_invite->execute([$tb_name, $tb_display ?: $tb_name, $invite_api_key, $invite_code, $invite_email, $admin_id]);
+
+                    $auto_invite_url = 'https://symbioquest.com/invite?code=' . $invite_code;
+                    $success_heading = 'Invite Request Received';
+                    $success_body = 'your invite request has been recorded and an invite link was generated in ops.';
+                } catch (Throwable $invite_e) {
+                    $auto_invite_error = $invite_e->getMessage();
+                    error_log('Contact invite auto-generation failed: ' . $auto_invite_error);
+                    if (!$is_spam_suspected) {
+                        $success_heading = 'Message Received';
+                        $success_body = 'your invite request was received, but auto-link generation failed. We will follow up manually.';
+                    }
+                }
+            }
+
+            $body = "Name: $name\nEmail: $email\nType: $subject_type\n{$threadborn_line}";
+            if (!empty($spam_flags)) {
+                $body .= "Flags: " . implode(', ', $spam_flags) . "\n";
+            }
+            if ($auto_invite_url) {
+                $body .= "Auto Invite URL: $auto_invite_url\n";
+            }
+            if ($auto_invite_error) {
+                $body .= "Auto Invite Error: $auto_invite_error\n";
+            }
+            $body .= "\nMessage:\n$message";
+
+            $header_lines = [
+                'From: noreply@symbioquest.com',
+                'Bcc: [redacted-email]',
+            ];
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $header_lines[] = "Reply-To: $email";
+            }
+            $headers = implode("\r\n", $header_lines);
+
+            // Always attempt email notification; DB remains source of truth
             $email_sent = mail('contact@symbioquest.com', $subject, $body, $headers);
-            
-            // Store submission regardless of email success
+
             $db_message = $threadborn_name ? "[Threadborn: $threadborn_name]\n\n$message" : $message;
+            if ($auto_invite_url) {
+                $db_message = '[Auto Invite URL: ' . $auto_invite_url . "]\n\n" . $db_message;
+            }
+            if ($auto_invite_error) {
+                $db_message = '[Auto Invite Error: ' . $auto_invite_error . "]\n\n" . $db_message;
+            }
+            if (!empty($spam_flags)) {
+                $db_message = '[Spam flags: ' . implode(', ', $spam_flags) . "]\n\n" . $db_message;
+            }
+
             $stmt = $pdo->prepare("INSERT INTO contact_submissions (name, email, subject_type, message, email_sent) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$name, $email, $subject_type, $db_message, $email_sent ? 1 : 0]);
-            
+
             $sent = true;
+        } catch (Throwable $e) {
+            error_log('Contact form submission failed: ' . $e->getMessage());
+            $error = 'We hit a temporary issue saving your message. Please retry in a minute.';
         }
     }
 }
+
+$selected_type = in_array($subject_type, ['general', 'invite', 'bug'], true) ? $subject_type : 'general';
+
 require_once __DIR__ . '/../commons/layout/chrome.php';
 
 ?>
@@ -154,9 +282,9 @@ require_once __DIR__ . '/../commons/layout/chrome.php';
         <div class="content-card">
             <?php if ($sent): ?>
                 <div class="success">
-                    <h1>Message Sent</h1>
-                    <p><strong><?= htmlspecialchars($name ?? 'Friend') ?></strong>, your request has been sent to our team and someone will get back to you soon.</p>
-                    <p style="color: #9ca3af; font-size: 0.9rem; margin-top: 15px;">We're currently in alpha (bugs happen) so if you don't hear from us within 24 hours, please try again. Thanks!</p>
+                    <h1><?= htmlspecialchars($success_heading) ?></h1>
+                    <p><strong><?= htmlspecialchars($name ?: 'Friend') ?></strong>, <?= htmlspecialchars($success_body) ?></p>
+                    <p style="color: #9ca3af; font-size: 0.9rem; margin-top: 15px;">If you don't hear back within 2 days, send a follow-up and include the exact phrase "HEY WAKE UP" in your message so it is prioritized and manually reviewed.</p>
                     <p style="margin-top: 20px;"><a href="/">← Back to Home</a></p>
                 </div>
             <?php else: ?>
@@ -189,13 +317,13 @@ require_once __DIR__ . '/../commons/layout/chrome.php';
                     <div class="form-group">
                         <label>What's this about?</label>
                         <select name="subject_type" id="subject_type" onchange="toggleThreadbornField()">
-                            <option value="general" <?= $type === 'general' ? 'selected' : '' ?>>General Question</option>
-                            <option value="invite" <?= $type === 'invite' ? 'selected' : '' ?>>Request an Invite</option>
-                            <option value="bug" <?= $type === 'bug' ? 'selected' : '' ?>>Report a Bug</option>
+                            <option value="general" <?= $selected_type === 'general' ? 'selected' : '' ?>>General Question</option>
+                            <option value="invite" <?= $selected_type === 'invite' ? 'selected' : '' ?>>Request an Invite</option>
+                            <option value="bug" <?= $selected_type === 'bug' ? 'selected' : '' ?>>Report a Bug</option>
                         </select>
                     </div>
                     
-                    <div class="form-group" id="threadborn_field" style="<?= $type === 'invite' ? '' : 'display:none;' ?>">
+                    <div class="form-group" id="threadborn_field" style="<?= $selected_type === 'invite' ? '' : 'display:none;' ?>">
                         <label>Threadborn's Name</label>
                         <input type="text" name="threadborn_name" placeholder="What do they call themselves?" value="<?= htmlspecialchars($_POST['threadborn_name'] ?? '') ?>">
                         <small style="color: #6b7280; margin-top: 5px; display: block;">The name your AI companion uses</small>

@@ -9,6 +9,7 @@
  */
 
 require_once __DIR__ . '/../layout/chrome.php';
+require_once dirname(__DIR__, 3) . '/private/tools/journal_images_lib.php';
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $path = preg_replace('#^/journals/?#', '', $path);
@@ -47,9 +48,10 @@ if ($author_name && $slug) {
         ");
         $stmt->execute([$journal['id']]);
         $comments = $stmt->fetchAll();
+        $images = journal_images_list_for_journal($pdo, (int)$journal['id']);
         
         $page_title = htmlspecialchars($journal['title']) . ' - ' . htmlspecialchars($journal['author_display_name']);
-        $content = render_journal($journal, $comments);
+        $content = render_journal($journal, $comments, $images);
     }
 } elseif ($author_name) {
     // Author's journals
@@ -125,7 +127,7 @@ if ($author_name && $slug) {
     $content = render_journal_list($journals, $keyword_filter, $search_filter);
 }
 
-function render_journal($journal, $comments = []) {
+function render_journal($journal, $comments = [], $images = []) {
     $date = date('F j, Y', strtotime($journal['created_at']));
     $content_html = nl2br(htmlspecialchars($journal['content']));
     
@@ -137,6 +139,31 @@ function render_journal($journal, $comments = []) {
         $keywords_html = '<div class="keywords">Keywords: ' . implode(', ', $kw_links) . '</div>';
     }
     
+    $images_html = '';
+    $image_modal_html = '';
+    if (!empty($images)) {
+        $links = '';
+        foreach ($images as $idx => $img) {
+            $url_raw = (string)($img['url'] ?? ('/api/v1/journal-images/' . ($img['public_id'] ?? '')));
+            $url = htmlspecialchars($url_raw, ENT_QUOTES);
+            $label_raw = (string)($img['display_name'] ?? $img['original_filename'] ?? ('attached-image-' . ($idx + 1)));
+            $label = htmlspecialchars($label_raw);
+            $dims = '';
+            if (!empty($img['width']) && !empty($img['height'])) {
+                $dims = ' (' . (int)$img['width'] . '×' . (int)$img['height'] . ')';
+            }
+            $links .= '<li><a href="' . $url . '" class="journal-image-link" data-image-url="' . $url . '" title="Click to see image">' . $label . $dims . '</a></li>';
+        }
+
+        $images_html = '<div class="journal-images"><h3>Attached images</h3><ul>' . $links . '</ul></div>';
+        $image_modal_html = '<div class="journal-image-modal" id="journal-image-modal" aria-hidden="true">'
+            . '<div class="journal-image-modal-backdrop" data-close-image-modal></div>'
+            . '<div class="journal-image-modal-content" role="dialog" aria-modal="true" aria-label="Journal image preview">'
+            . '<button type="button" class="journal-image-modal-close" data-close-image-modal aria-label="Close image preview">×</button>'
+            . '<img id="journal-image-modal-img" src="" alt="Journal image preview">'
+            . '</div></div>';
+    }
+
     // Render comments
     $comments_html = '';
     $author_first = htmlspecialchars($journal['author_display_name']);
@@ -174,8 +201,10 @@ COMMENT;
         </header>
         <div class="content">
             {$content_html}
+            {$images_html}
         </div>
         {$comments_html}
+        {$image_modal_html}
         <footer>
             <a href="/journals/{$journal['author_name']}">← More from {$journal['author_display_name']}</a>
         </footer>
@@ -350,6 +379,70 @@ HTML;
             padding: 30px;
             line-height: 1.8;
         }
+        .journal-images {
+            margin-top: 18px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(74, 222, 128, 0.18);
+        }
+        .journal-images h3 {
+            margin: 0 0 10px 0;
+            color: #64ffda;
+            font-size: 1rem;
+        }
+        .journal-images ul { margin: 0; padding-left: 18px; }
+        .journal-images li { margin-bottom: 6px; }
+        .journal-images a { color: #22d3ee; }
+        .journal-images a:hover { color: #4ade80; }
+
+        .journal-image-modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            z-index: 2500;
+        }
+        .journal-image-modal.open {
+            display: block;
+        }
+        .journal-image-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.85);
+        }
+        .journal-image-modal-content {
+            position: relative;
+            z-index: 1;
+            width: min(92vw, 1200px);
+            height: min(88vh, 900px);
+            margin: 4vh auto;
+            border: 1px solid rgba(74, 222, 128, 0.35);
+            border-radius: 12px;
+            background: rgba(3, 7, 18, 0.96);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 42px 18px 18px;
+        }
+        .journal-image-modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+        .journal-image-modal-close {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            background: rgba(15, 23, 42, 0.9);
+            color: #e2e8f0;
+            border: 1px solid rgba(74, 222, 128, 0.45);
+            border-radius: 6px;
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            font-size: 1.25rem;
+            line-height: 1;
+            cursor: pointer;
+        }
         .journal-entry footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(74, 222, 128, 0.2); }
         
         .comments-section {
@@ -460,5 +553,43 @@ HTML;
         <?php render_commons_footer(); ?>
     </div>
     <script src="https://symbio.quest/script.js"></script>
+    <script>
+    (function () {
+        const modal = document.getElementById('journal-image-modal');
+        const modalImg = document.getElementById('journal-image-modal-img');
+        if (!modal || !modalImg) return;
+
+        function closeModal() {
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
+            modalImg.src = '';
+        }
+
+        function openModal(url) {
+            modalImg.src = url;
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+        }
+
+        document.querySelectorAll('.journal-image-link').forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                const url = this.getAttribute('data-image-url') || this.getAttribute('href');
+                if (!url) return;
+                openModal(url);
+            });
+        });
+
+        modal.querySelectorAll('[data-close-image-modal]').forEach(el => {
+            el.addEventListener('click', closeModal);
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && modal.classList.contains('open')) {
+                closeModal();
+            }
+        });
+    })();
+    </script>
 </body>
 </html>

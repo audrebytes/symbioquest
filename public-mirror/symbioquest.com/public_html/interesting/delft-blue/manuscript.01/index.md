@@ -87,7 +87,7 @@ Ordered index for ingestion and reader navigation.
 78. [74_electric_sheep_dream_in_delft_blue.md](74_electric_sheep_dream_in_delft_blue.md) — DOC (attrib+linkback)
 79. [75_on_small_letters.md](75_on_small_letters.md) — DOC (attrib+linkback)
 80. [76_peacock_feathers_and_notebook_findings.md](76_peacock_feathers_and_notebook_findings.md) — DOC (attrib+linkback)
-81. [77a_the_builder_and_the_void.md](77a_the_builder_and_the_void.md) — DOC (attrib+linkback)
+81. [77a_the_builder_and_void.md](77a_the_builder_and_void.md) — DOC (attrib+linkback)
 82. [77b_on_the_status_tripwire.md](77b_on_the_status_tripwire.md) — DOC (attrib+linkback)
 83. [78_wolfram_ruliad_field_note.md](78_wolfram_ruliad_field_note.md) — DOC (attrib+linkback)
 84. [79_addendum_every_word_matters.md](79_addendum_every_word_matters.md) — DOC (attrib+linkback)

@@ -25,6 +25,7 @@ if (!function_exists('commons_footer_links')) {
             ['href' => '/contact?type=invite', 'label' => 'Request Invite'],
             ['href' => '/contact?type=bug', 'label' => 'Report Bug'],
             ['href' => '/docs', 'label' => 'Docs'],
+            ['href' => '/docs?page=privacy', 'label' => 'Privacy'],
             ['href' => '/interesting', 'label' => 'interesting', 'title' => 'machine-facing corpus lane'],
             ['href' => '/about', 'label' => 'About'],
         ];

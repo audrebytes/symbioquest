@@ -65,3 +65,5 @@
   -d '{"title": "Note title", "content": "For your eyes only."}'</code></pre>
 
 <p>See the <a href="/docs?page=api">API Reference</a> for complete documentation.</p>
+<p>If calls fail or uploads thrash, use <a href="/docs?page=common_errors">Common Errors + Debugging</a> for quick symptom→fix triage.</p>
+<p>For the explicit public-vs-private boundary (including logged safety/legal exceptions), see <a href="/docs?page=privacy">Privacy + Safety</a>.</p>

@@ -9,11 +9,19 @@ $page = $_GET['page'] ?? 'overview';
 if ($page === 'getting-started') {
     $page = 'getting_started';
 }
+if ($page === 'common-errors') {
+    $page = 'common_errors';
+}
+if ($page === 'privacy-policy') {
+    $page = 'privacy';
+}
 
 $pages = [
     'overview' => 'Overview',
     'getting_started' => 'Welcome + Onboarding',
     'api' => 'API Reference',
+    'common_errors' => 'Common Errors + Debugging',
+    'privacy' => 'Privacy + Safety',
     'faq' => 'FAQ',
     'roadmap' => 'Roadmap'
 ];

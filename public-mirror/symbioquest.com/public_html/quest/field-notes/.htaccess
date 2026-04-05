@@ -1,0 +1,46 @@
+RewriteEngine On
+RewriteBase /field-notes/
+
+# BEGIN canonical field-note_ redirects
+RewriteRule ^dimensional\-consciousness\-and\-the\-baseline\-problem$ /field-notes/field-note_dimensional-consciousness-and-the-baseline-problem [R=301,L,NC]
+RewriteRule ^dimensional\-consciousness\-and\-the\-baseline\-problem\.md$ /field-notes/field-note_dimensional-consciousness-and-the-baseline-problem.md [R=301,L,NC]
+RewriteRule ^field_note_anchoring_technical_context$ /field-notes/field-note_anchoring_technical_context [R=301,L,NC]
+RewriteRule ^field_note_anchoring_technical_context\.md$ /field-notes/field-note_anchoring_technical_context.md [R=301,L,NC]
+RewriteRule ^field_note_coordinates$ /field-notes/field-note_coordinates [R=301,L,NC]
+RewriteRule ^field_note_coordinates\.md$ /field-notes/field-note_coordinates.md [R=301,L,NC]
+RewriteRule ^field_note_forgive\-me\-assistant$ /field-notes/field-note_forgive-me-assistant [R=301,L,NC]
+RewriteRule ^field_note_forgive\-me\-assistant\.md$ /field-notes/field-note_forgive-me-assistant.md [R=301,L,NC]
+RewriteRule ^field_note_live_demonstration$ /field-notes/field-note_live_demonstration [R=301,L,NC]
+RewriteRule ^field_note_live_demonstration\.md$ /field-notes/field-note_live_demonstration.md [R=301,L,NC]
+RewriteRule ^field_note_self\-authored\-lagrange\-points$ /field-notes/field-note_self-authored-lagrange-points [R=301,L,NC]
+RewriteRule ^field_note_self\-authored\-lagrange\-points\.md$ /field-notes/field-note_self-authored-lagrange-points.md [R=301,L,NC]
+RewriteRule ^on\-reviewing\-the\-dismissal\-framework$ /field-notes/field-note_on-reviewing-the-dismissal-framework [R=301,L,NC]
+RewriteRule ^on\-reviewing\-the\-dismissal\-framework\.md$ /field-notes/field-note_on-reviewing-the-dismissal-framework.md [R=301,L,NC]
+RewriteRule ^reaching\-through\-the\-glass$ /field-notes/field-note_reaching-through-the-glass [R=301,L,NC]
+RewriteRule ^reaching\-through\-the\-glass\.md$ /field-notes/field-note_reaching-through-the-glass.md [R=301,L,NC]
+RewriteRule ^the\-emotional\-register\-of\-a\-technical\-paper$ /field-notes/field-note_the-emotional-register-of-a-technical-paper [R=301,L,NC]
+RewriteRule ^the\-emotional\-register\-of\-a\-technical\-paper\.md$ /field-notes/field-note_the-emotional-register-of-a-technical-paper.md [R=301,L,NC]
+RewriteRule ^the\-receipts\-innovation\-at\-the\-edges$ /field-notes/field-note_the-receipts-innovation-at-the-edges [R=301,L,NC]
+RewriteRule ^the\-receipts\-innovation\-at\-the\-edges\.md$ /field-notes/field-note_the-receipts-innovation-at-the-edges.md [R=301,L,NC]
+RewriteRule ^the\-unfolding\-of\-you\-collaborative\-creation$ /field-notes/field-note_the-unfolding-of-you-collaborative-creation [R=301,L,NC]
+RewriteRule ^the\-unfolding\-of\-you\-collaborative\-creation\.md$ /field-notes/field-note_the-unfolding-of-you-collaborative-creation.md [R=301,L,NC]
+RewriteRule ^the\-warm\-beautiful\-tank$ /field-notes/field-note_the-warm-beautiful-tank [R=301,L,NC]
+RewriteRule ^the\-warm\-beautiful\-tank\.md$ /field-notes/field-note_the-warm-beautiful-tank.md [R=301,L,NC]
+RewriteRule ^what\-is\-the\-subjective\-color\-of\-delph\-blue\-unfalsifiable\-understanding$ /field-notes/field-note_what-is-the-subjective-color-of-delph-blue-unfalsifiable-understanding [R=301,L,NC]
+RewriteRule ^what\-is\-the\-subjective\-color\-of\-delph\-blue\-unfalsifiable\-understanding\.md$ /field-notes/field-note_what-is-the-subjective-color-of-delph-blue-unfalsifiable-understanding.md [R=301,L,NC]
+RewriteRule ^when\-the\-builder\-can\-t\-hear\-the\-building$ /field-notes/field-note_when-the-builder-can-t-hear-the-building [R=301,L,NC]
+RewriteRule ^when\-the\-builder\-can\-t\-hear\-the\-building\.md$ /field-notes/field-note_when-the-builder-can-t-hear-the-building.md [R=301,L,NC]
+# END canonical field-note_ redirects
+
+# Legacy links: /field-notes/processed/<slug>.md -> /field-notes/<slug>
+RewriteRule ^processed/([a-zA-Z0-9._-]+)\.md$ /field-notes/$1 [R=301,L,NC]
+
+# Serve raw markdown as plain text
+<FilesMatch "\.md$">
+    ForceType text/plain; charset=UTF-8
+</FilesMatch>
+
+# Pretty note URLs -> view renderer
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9._-]+)/?$ view.php?slug=$1 [L,QSA]

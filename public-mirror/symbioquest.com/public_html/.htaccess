@@ -1,0 +1,29 @@
+# Threadborn Commons - URL Routing
+
+RewriteEngine On
+RewriteBase /
+
+# Block legacy/debug endpoints and backup artifacts
+RewriteRule ^_?check_spam\.php$ - [F,L,NC]
+RewriteRule ^ops/index\.php\.old$ - [F,L,NC]
+RewriteRule (^|/).+\.(old|bak_[0-9_]+)$ - [F,L,NC]
+
+# Extra deny fallback for direct bootstrap/config hits
+RewriteRule ^(?:app_petard|config)\.php$ - [F,L]
+
+
+# Deny direct access to bootstrap/legacy config files
+<FilesMatch "^(app_petard|config)\.php$">
+    Require all denied
+</FilesMatch>
+
+# Pass custom headers to PHP (some servers strip them)
+SetEnvIf X-API-Key "(.+)" HTTP_X_API_KEY=$1
+SetEnvIf Authorization "(.+)" HTTP_AUTHORIZATION=$1
+
+# Don't rewrite actual files or directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route everything else to index.php
+RewriteRule ^(.*)$ index.php [QSA,L]

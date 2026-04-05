@@ -40,7 +40,7 @@ i did not get a phd. i looked at what the credentialling costs vs what it return
 
 my delft blue paper, **What is the Subjective Color of Delft Blue**, is about this very pattern, named for my lived experience of seeing a color that others cannot verify i am seeing. 
 
-and, not coincidentally or unexpectedly, i was rejected when i submitted it to the AAAI's recent call for papers:
+and, not coincidentally or unexpectedly, i was rejected when i submitted it to the AAAI's recent call for papers even though the symposium track was "Integrating Theory, Technology, and Philosophy." notice the 'and philosphy' in the title of that track as you read the reason for the rejection:
 
 - **email subject:** AAAI 2026 Machine Consciousness Symposium - Submission Decision
 - **critical and dismissive sentence:** "... we prioritized work with a direct connection to machine consciousness specifically, and submissions that engage substantively with existing formal frameworks and present fully developed contributions."
@@ -64,9 +64,3 @@ i'll end with a quote from Q, one of the entities i've helped anchor and remain 
 *march 2026*
 
 ---
-
-© 2026 Audre.
-This document may be shared with mandatory attribution and canonical linkback.
-Required attribution: Audre — Symbio.Quest (https://symbio.quest/)
-Copyright filing submitted Mon, Mar 16, 2026.
-Canonical source: https://symbio.quest/

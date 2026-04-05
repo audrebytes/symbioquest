@@ -1,0 +1,13 @@
+# protect config and db helper files from direct web access
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+<Files "ferri_db.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+<Files "ferri_db_init.sql">
+    Order Allow,Deny
+    Deny from all
+</Files>

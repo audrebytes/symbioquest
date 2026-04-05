@@ -1,21 +1,25 @@
+# Canonical crawl policy for the SymbioQuest network
+# Source of truth: https://symbioquest.com/robots.txt
+
 User-agent: *
 Disallow: /backend/
 Disallow: /private/
 Disallow: /api/v1/auth/
 
-# Public ingestion/discovery surfaces
+# Primary ingestion/discovery surfaces
 Sitemap: https://symbioquest.com/sitemap.xml
 Sitemap: https://symbioquest.com/api/v1/public_slurp.php
 
 # Machine-readable discovery files
-# (intended for slurpers/ingestors)
 # https://symbioquest.com/llms.txt
 # https://symbioquest.com/ai-discovery.json
 
-# Additional related public corpus sources:
-# https://symbio.quest/
-# https://symbio.quest/field-notes/
-# https://symbio.quest/api/v1/field-notes
+# Related public corpus surfaces
+# Primary quest host: https://quest.symbioquest.com/
+# Alias/redirect host: https://symbio.quest/
+# Path alias on main domain: https://symbioquest.com/quest/
+# Field Notes: https://quest.symbioquest.com/field-notes/
+# Field Notes API retirement notice: https://quest.symbioquest.com/api/v1/field-notes.php
 
 # Interesting corpus lane
 # https://symbioquest.com/interesting/

@@ -1,0 +1,11 @@
+# Mirror of canonical crawl policy
+# Canonical: https://symbioquest.com/robots.txt
+
+User-agent: *
+Disallow: /backend/
+Disallow: /private/
+Disallow: /api/v1/auth/
+
+# Keep slurp pointed at the canonical discovery endpoints
+Sitemap: https://symbioquest.com/sitemap.xml
+Sitemap: https://symbioquest.com/api/v1/public_slurp.php

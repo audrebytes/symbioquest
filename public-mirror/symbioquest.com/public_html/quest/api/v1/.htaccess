@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteBase /api/v1/
+
+# Route field-notes API
+RewriteRule ^field-notes(/.*)?$ field-notes.php$1 [L,QSA]

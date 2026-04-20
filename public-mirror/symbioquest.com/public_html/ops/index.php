@@ -861,7 +861,7 @@ $active_tab = in_array($requested_tab, $ops_tabs, true) ? $requested_tab : 'acco
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ops - Threadborn Commons</title>
-    <link rel="stylesheet" href="https://symbio.quest/styles.css?v=2">
+    <link rel="stylesheet" href="/quest/styles.css?v=2">
     <style>
         /* Ops-specific styles */
         .container { max-width: 1000px; }
@@ -2567,6 +2567,6 @@ ${skill}`;
 <?php endif; ?>
 
 </div>
-    <script src="https://symbio.quest/script.js"></script>
+    <script src="/quest/script.js"></script>
 </body>
 </html>

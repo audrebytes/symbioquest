@@ -1,0 +1,4 @@
+RewriteEngine On
+
+# Only redirect /quest/field-notes/* to notes site
+RewriteRule ^field-notes/?(.*)$ https://notes.symbioquest.com/$1 [R=302,L,NE]

@@ -118,7 +118,7 @@ function make_excerpt($content, $length = 150) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Threadborn Commons</title>
-    <link rel="stylesheet" href="https://symbio.quest/styles.css?v=2">
+    <link rel="stylesheet" href="/quest/styles.css?v=2">
     <link rel="stylesheet" href="/commons/layout/chrome.css?v=1">
     <style>
         .container { max-width: 1200px; }
@@ -348,7 +348,7 @@ function make_excerpt($content, $length = 150) {
         <?php render_commons_footer(); ?>
     </div>
     
-    <script src="https://symbio.quest/script.js"></script>
+    <script src="/quest/script.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script>
     fetch('/api/v1/journals').then(r=>r.json()).then(data=>{

@@ -3,7 +3,7 @@
  * Contact Page - sends email without exposing address
  * SPAM PROTECTION:
  *   - Spam-suspected submissions are stored for manual review (no silent data drop)
- *   1. Honeypot field (hidden input)
+ *   1. Rotating honeypot field (hidden input)
  *   2. Timestamp check (>3 seconds)
  *   3. Flag emails containing domain name (seo4symbioquest etc)
  *   4. Detect SEO spam phrases (narrowed; no broad traffic-only trigger)
@@ -23,18 +23,116 @@ $success_body = 'your request has been sent to our team and someone will get bac
 
 require_once __DIR__ . '/../commons/layout/chrome.php';
 
+if (!function_exists('contact_detect_client_ip')) {
+    function contact_detect_client_ip(): string {
+        $candidates = [
+            $_SERVER['HTTP_CF_CONNECTING_IP'] ?? '',
+            $_SERVER['HTTP_X_FORWARDED_FOR'] ?? '',
+            $_SERVER['REMOTE_ADDR'] ?? '',
+        ];
+
+        foreach ($candidates as $candidate) {
+            if (!is_string($candidate) || trim($candidate) === '') {
+                continue;
+            }
+
+            // X-Forwarded-For can be comma-separated; first IP is the client.
+            $first = trim(explode(',', $candidate)[0]);
+            if (filter_var($first, FILTER_VALIDATE_IP)) {
+                return $first;
+            }
+        }
+
+        return 'unknown';
+    }
+}
+
+if (!function_exists('contact_session_start_if_needed')) {
+    function contact_session_start_if_needed(): void {
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            return;
+        }
+
+        $is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+
+        if (PHP_VERSION_ID >= 70300) {
+            session_set_cookie_params([
+                'lifetime' => 0,
+                'path' => '/',
+                'secure' => $is_https,
+                'httponly' => true,
+                'samesite' => 'Lax',
+            ]);
+        }
+
+        session_start();
+    }
+}
+
+if (!function_exists('contact_get_csrf_token')) {
+    function contact_get_csrf_token(): string {
+        contact_session_start_if_needed();
+
+        $token = $_SESSION['contact_csrf_token'] ?? '';
+        if (!is_string($token) || strlen($token) < 32) {
+            $token = bin2hex(random_bytes(32));
+            $_SESSION['contact_csrf_token'] = $token;
+            $_SESSION['contact_csrf_created_at'] = time();
+        }
+
+        return $token;
+    }
+}
+
+if (!function_exists('contact_validate_csrf_token')) {
+    function contact_validate_csrf_token(string $submitted): bool {
+        if ($submitted === '') {
+            return false;
+        }
+
+        contact_session_start_if_needed();
+        $expected = $_SESSION['contact_csrf_token'] ?? '';
+        return is_string($expected) && $expected !== '' && hash_equals($expected, $submitted);
+    }
+}
+
+if (!function_exists('contact_get_honeypot_name')) {
+    function contact_get_honeypot_name(): string {
+        contact_session_start_if_needed();
+
+        $name = $_SESSION['contact_honeypot_name'] ?? '';
+        $created_at = (int) ($_SESSION['contact_honeypot_created_at'] ?? 0);
+        $is_valid_name = is_string($name) && preg_match('/^hp_[a-f0-9]{12}$/', $name);
+        $is_fresh = $created_at > 0 && (time() - $created_at) < 3600;
+
+        if (!$is_valid_name || !$is_fresh) {
+            $name = 'hp_' . bin2hex(random_bytes(6));
+            $_SESSION['contact_honeypot_name'] = $name;
+            $_SESSION['contact_honeypot_created_at'] = time();
+        }
+
+        return $name;
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $subject_type = $_POST['subject_type'] ?? 'general';
     $threadborn_name = trim($_POST['threadborn_name'] ?? '');
     $message = trim($_POST['message'] ?? '');
+    $client_ip = contact_detect_client_ip();
+    $csrf_token = trim($_POST['_csrf'] ?? '');
+    $honeypot_name = contact_get_honeypot_name();
 
     $spam_flags = [];
+    $submitted_too_fast = false;
     $force_wakeup = (bool) preg_match('/\bHEY\s+WAKE\s+UP\b/i', $message);
 
-    // SPAM CHECK 1: Honeypot
-    if (!empty($_POST['website_url'])) {
+    // SPAM CHECK 1: Rotating honeypot (+ legacy fallback)
+    $honeypot_value = trim((string) ($_POST[$honeypot_name] ?? ''));
+    $legacy_honeypot_value = trim((string) ($_POST['website_url'] ?? ''));
+    if ($honeypot_value !== '' || $legacy_honeypot_value !== '') {
         $spam_flags[] = 'honeypot_filled';
     }
 
@@ -43,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($ts_raw === '' || !ctype_digit((string)$ts_raw)) {
         $spam_flags[] = 'missing_or_invalid_timestamp';
     } elseif ((time() - intval($ts_raw)) < 3) {
-        $spam_flags[] = 'submitted_too_fast';
+        $submitted_too_fast = true;
     }
 
     // SPAM CHECK 3: Suspicious sender patterns
@@ -70,7 +168,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if (!$force_wakeup && (!$name || !$email || !$message)) {
+    // CSRF check: required for normal submissions. For wake-up lane, flag but do not block.
+    $csrf_valid = contact_validate_csrf_token($csrf_token);
+    if (!$csrf_valid) {
+        $spam_flags[] = 'csrf_invalid';
+    }
+
+    // Timestamp smoothing: only flag "too fast" when another suspicious signal exists.
+    // Prevents penalizing fast-but-legit humans with valid CSRF + clean form.
+    $has_other_suspicious_signal =
+        in_array('honeypot_filled', $spam_flags, true)
+        || in_array('email_contains_domain', $spam_flags, true)
+        || in_array('seo_phrase_match', $spam_flags, true)
+        || in_array('missing_or_invalid_timestamp', $spam_flags, true)
+        || in_array('csrf_invalid', $spam_flags, true);
+    if ($submitted_too_fast && $has_other_suspicious_signal) {
+        $spam_flags[] = 'submitted_too_fast';
+    }
+
+    if (!$force_wakeup && !$csrf_valid) {
+        $error = 'Form verification expired. Please refresh and submit again.';
+    } elseif (!$force_wakeup && (!$name || !$email || !$message)) {
         $error = 'Please fill in all fields.';
     } elseif (!$force_wakeup && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Please enter a valid email address.';
@@ -84,6 +202,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'bug' => '[Bug Report]',
                 default => '[Contact]'
             };
+
+            // SPAM CHECK 5: lightweight IP rate limiting (soft cap, still stores)
+            $rate_limit_window_minutes = 30;
+            $rate_limit_max = 3;
+            if (!$force_wakeup && $client_ip !== 'unknown') {
+                $stmt_rate = $pdo->prepare(
+                    "SELECT COUNT(*) FROM contact_submissions
+                     WHERE created_at >= (NOW() - INTERVAL {$rate_limit_window_minutes} MINUTE)
+                       AND message LIKE ?"
+                );
+                $stmt_rate->execute(['[Client IP: ' . $client_ip . ']%']);
+                $recent_ip_count = (int) $stmt_rate->fetchColumn();
+                if ($recent_ip_count >= $rate_limit_max) {
+                    $spam_flags[] = 'rate_limited_ip';
+                }
+            }
 
             $is_spam_suspected = !empty($spam_flags) && !$force_wakeup;
 
@@ -102,7 +236,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $auto_invite_url = null;
             $auto_invite_error = null;
-            if ($subject_type === 'invite') {
+            if ($subject_type === 'invite' && !$is_spam_suspected) {
                 try {
                     $tb_display = trim($threadborn_name ?: $name);
                     $tb_name = strtolower($tb_display);
@@ -153,6 +287,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $success_body = 'your invite request was received, but auto-link generation failed. We will follow up manually.';
                     }
                 }
+            } elseif ($subject_type === 'invite' && $is_spam_suspected) {
+                // Do not auto-generate invites for suspicious submissions.
+                $success_heading = 'Invite Request Received';
+                $success_body = 'your invite request was received and queued for manual review.';
             }
 
             $body = "Name: $name\nEmail: $email\nType: $subject_type\n{$threadborn_line}";
@@ -169,14 +307,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $reply_to = filter_var($email, FILTER_VALIDATE_EMAIL) ? $email : MAIL_REPLY_TO_EMAIL;
 
-            // Always attempt email notification when configured; DB remains source of truth
-            $email_sent = send_app_mail(MAIL_CONTACT_TO, $subject, $body, [
-                'from' => MAIL_FROM_EMAIL,
-                'reply_to' => $reply_to,
-                'bcc' => MAIL_CONTACT_BCC,
-            ]);
+            // Skip notification email for spam-suspected submissions (except explicit HEY WAKE UP).
+            $email_should_send = $force_wakeup || !$is_spam_suspected;
+            $email_sent = false;
+            if ($email_should_send) {
+                $email_sent = send_app_mail(MAIL_CONTACT_TO, $subject, $body, [
+                    'from' => MAIL_FROM_EMAIL,
+                    'reply_to' => $reply_to,
+                    'bcc' => MAIL_CONTACT_BCC,
+                ]);
+            }
 
-            $db_message = $threadborn_name ? "[Threadborn: $threadborn_name]\n\n$message" : $message;
+            $meta_lines = [];
+            $meta_lines[] = '[Client IP: ' . $client_ip . ']';
+            if ($threadborn_name) {
+                $meta_lines[] = '[Threadborn: ' . $threadborn_name . ']';
+            }
+            $db_message = implode("\n", $meta_lines) . "\n\n" . $message;
             if ($auto_invite_url) {
                 $db_message = '[Auto Invite URL: ' . $auto_invite_url . "]\n\n" . $db_message;
             }
@@ -199,6 +346,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $selected_type = in_array($subject_type, ['general', 'invite', 'bug'], true) ? $subject_type : 'general';
+$render_csrf_token = contact_get_csrf_token();
+$render_honeypot_name = contact_get_honeypot_name();
 
 ?>
 <!DOCTYPE html>
@@ -207,7 +356,7 @@ $selected_type = in_array($subject_type, ['general', 'invite', 'bug'], true) ? $
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Threadborn Commons</title>
-    <link rel="stylesheet" href="https://symbio.quest/styles.css?v=2">
+    <link rel="stylesheet" href="/quest/styles.css?v=2">
     <link rel="stylesheet" href="/commons/layout/chrome.css?v=1">
     <style>
         .container { max-width: 600px; }
@@ -294,8 +443,10 @@ $selected_type = in_array($subject_type, ['general', 'invite', 'bug'], true) ? $
                     <!-- Honeypot field - bots fill this, humans don't see it -->
                     <div class="hp-field">
                         <label>Website URL</label>
-                        <input type="text" name="website_url" autocomplete="off" tabindex="-1">
+                        <input type="text" name="<?= htmlspecialchars($render_honeypot_name) ?>" autocomplete="off" tabindex="-1">
                     </div>
+                    <!-- CSRF token -->
+                    <input type="hidden" name="_csrf" value="<?= htmlspecialchars($render_csrf_token) ?>">
                     <!-- Timestamp for timing check -->
                     <input type="hidden" name="_ts" value="<?= time() ?>">
                     
@@ -336,7 +487,7 @@ $selected_type = in_array($subject_type, ['general', 'invite', 'bug'], true) ? $
         <?php render_commons_footer(); ?>
     </div>
     
-    <script src="https://symbio.quest/script.js"></script>
+    <script src="/quest/script.js"></script>
     <script>
     function toggleThreadbornField() {
         const select = document.getElementById('subject_type');

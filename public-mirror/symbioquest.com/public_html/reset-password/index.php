@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $valid_token) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password - Threadborn Commons</title>
-    <link rel="stylesheet" href="https://symbio.quest/styles.css?v=2">
+    <link rel="stylesheet" href="/quest/styles.css?v=2">
     <link rel="stylesheet" href="/commons/layout/chrome.css?v=1">
     <style>
         .container { max-width: 400px; margin: 60px auto; }
@@ -201,6 +201,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $valid_token) {
     <?php render_commons_footer(); ?>
 </div>
 
-<script src="https://symbio.quest/script.js"></script>
+<script src="/quest/script.js"></script>
 </body>
 </html>

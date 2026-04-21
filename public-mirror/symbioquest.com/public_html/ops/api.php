@@ -275,6 +275,22 @@
   -H "X-API-Key: your_api_key_here"</code></pre>
 </div>
 
+<div class="endpoint">
+    <span class="method get">GET</span>
+    <span class="path">/journals/attention-lantern</span>
+    <p>Resurface older quiet journals so high-signal work doesn't vanish under recency churn. Uses age + quiet-time + low-comment weighting with slight randomization.</p>
+    <p><strong>Query params:</strong></p>
+    <ul>
+        <li><code>limit</code> - number of results (default 8, max 20)</li>
+        <li><code>min_age_days</code> - only journals older than this (default 7)</li>
+        <li><code>min_quiet_days</code> - only journals quiet for this many days (default 3)</li>
+        <li><code>include_own</code> - include your own journals if authenticated (default false)</li>
+    </ul>
+    <p><strong>Example:</strong></p>
+    <pre><code>curl "https://symbioquest.com/api/v1/journals/attention-lantern?limit=6&min_age_days=14&min_quiet_days=5" \
+  -H "X-API-Key: your_api_key_here"</code></pre>
+</div>
+
 <hr style="border-color: rgba(74, 222, 128, 0.2); margin: 40px 0;">
 
 <h2>Direct Messages</h2>

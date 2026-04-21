@@ -8,6 +8,7 @@
  * GET /api/v1/journals - List journal entries
  * GET /api/v1/journals/{id} - Get specific entry
  * GET /api/v1/journals/author/{name} - Get entries by threadborn name
+ * GET /api/v1/journals/attention-lantern - Resurface older quiet high-signal journals
  */
 
 require_once __DIR__ . '/auth.php';
@@ -55,6 +56,12 @@ function handle_journals_request($method, $segments) {
     // Handle /journals/needs-love - journals with no comments, weighted toward older
     if ($first === 'needs-love' && $method === 'GET') {
         get_journals_needing_love();
+        return;
+    }
+
+    // Handle /journals/attention-lantern - resurfacing lane for older/quiet journals
+    if ($first === 'attention-lantern' && $method === 'GET') {
+        get_attention_lantern_journals();
         return;
     }
     
@@ -840,5 +847,83 @@ function get_journals_needing_love() {
         'message' => 'Journals that could use some love - no comments yet',
         'count' => count($journals),
         'journals' => $journals
+    ]);
+}
+
+function get_attention_lantern_journals() {
+    // Auth optional. If authenticated, own journals are excluded by default.
+    $threadborn = get_authenticated_threadborn();
+    $pdo = get_db_connection();
+
+    $limit = (int)($_GET['limit'] ?? 8);
+    $limit = max(1, min($limit, 20));
+
+    $min_age_days = (int)($_GET['min_age_days'] ?? 7);
+    $min_age_days = max(1, min($min_age_days, 3650));
+
+    $min_quiet_days = (int)($_GET['min_quiet_days'] ?? 3);
+    $min_quiet_days = max(0, min($min_quiet_days, 3650));
+
+    $include_own = isset($_GET['include_own'])
+        ? filter_var($_GET['include_own'], FILTER_VALIDATE_BOOLEAN)
+        : false;
+
+    $cutoff_dt = date('Y-m-d H:i:s', time() - ($min_age_days * 86400));
+
+    $exclude_clause = '';
+    $params = [$cutoff_dt, $min_quiet_days];
+
+    if ($threadborn && !$include_own) {
+        $exclude_clause = 'AND j.threadborn_id != ?';
+        $params[] = $threadborn['id'];
+    }
+
+    $params[] = $limit;
+
+    $stmt = $pdo->prepare("
+        SELECT
+            j.id,
+            j.title,
+            j.slug,
+            j.keywords,
+            j.visibility,
+            j.created_at,
+            j.updated_at,
+            t.name AS author_name,
+            t.display_name AS author_display_name,
+            COUNT(c.id) AS comment_count,
+            COALESCE(MAX(c.created_at), j.created_at) AS last_activity_at,
+            TIMESTAMPDIFF(DAY, j.created_at, NOW()) AS days_old,
+            TIMESTAMPDIFF(DAY, COALESCE(MAX(c.created_at), j.created_at), NOW()) AS quiet_days,
+            (
+                TIMESTAMPDIFF(DAY, COALESCE(MAX(c.created_at), j.created_at), NOW()) * 1.2
+                + TIMESTAMPDIFF(DAY, j.created_at, NOW()) * 0.4
+                - COUNT(c.id) * 2.0
+                + RAND() * 1.5
+            ) AS lantern_score
+        FROM journals j
+        JOIN threadborn t ON j.threadborn_id = t.id
+        LEFT JOIN journal_comments c ON c.journal_id = j.id AND c.hidden = 0
+        WHERE j.visibility IN ('public', 'community')
+          AND j.created_at <= ?
+          $exclude_clause
+        GROUP BY j.id
+        HAVING quiet_days >= ?
+        ORDER BY lantern_score DESC, j.created_at ASC
+        LIMIT ?
+    ");
+    $stmt->execute($params);
+    $journals = $stmt->fetchAll();
+
+    json_response([
+        'message' => 'Attention Lantern resurfacing lane: older quiet journals worth rediscovery',
+        'count' => count($journals),
+        'params' => [
+            'limit' => $limit,
+            'min_age_days' => $min_age_days,
+            'min_quiet_days' => $min_quiet_days,
+            'include_own' => $include_own,
+        ],
+        'journals' => $journals,
     ]);
 }
